@@ -5,6 +5,10 @@ import "./App.css";
 import Home from "./features/Home";
 import NavBar from "./components/NavBar";
 import CartList from "./features/cart/CartList";
+import ShopProducts from "./features/shop/ShopProducts";
+import Hire from "./features/products/Hire";
+import Blog from "./features/blog";
+import Consultation from "./features/consultation";
 
 function App() {
   return (
@@ -12,7 +16,11 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/home" component={Home} />
+          <Route path="/shop" component={ShopProducts} />
+          <Route path="/hire" component={Hire} />
+          <Route path="/consultation" component={Consultation} />
+          <Route path="/blog" component={Blog} />
           <Route path="/cart" component={CartList} />
         </Switch>
       </Router>

@@ -1,33 +1,121 @@
 * {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-.nav_navHeader {
-  display: flex;
-  justify-content: space-between;
-  height: 50px;
-  background-color: aquamarine;
-}
-
-.nav_navContent {
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px;
-}
-
-.nav_navContent ul li {
-  list-style-type: none;
-  display: inline-block;
-}
-.nav_navContent ul li a {
-  text-decoration: none;
-  padding-right: 30px;
+  background-color: #f8f8f8;
 }
 
 .prod_image {
   width: 15%;
   height: 15%;
+}
+
+.navbar_items {
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #206a5d;
+}
+
+.navbar_navMenu {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-gap: 10px;
+  width: 80vw;
+  list-style-type: none;
+  text-align: center;
+  justify-content: end;
+  margin-right: 2rem;
+}
+
+.navbar_links {
+  color: #206a5d;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.navbar_links:hover {
+  background-color: #206a5d;
+  color: #f8f8f8;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
+}
+
+.navbar_menuIcon {
+  display: none;
+}
+
+.green_backgroundColor {
+  background-color: #206a5d;
+  color: #f8f8f8;
+}
+
+.cartNumber {
+  background-color: #206a5d;
+  color: #f8f8f8;
+  height: 30px;
+  width: 10px;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.active_class {
+  background-color: #206a5d;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
+  color: #f8f8f8;
+}
+
+@media screen and (max-width: 960px) {
+  .navbar_items {
+    position: relative;
+  }
+
+  .navbar_navMenu {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 100%;
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+
+  .navbar_navMenu.active {
+    left: 0;
+    opacity: 1;
+    transition: all 0.5 ease;
+    z-index: 1;
+  }
+
+  .navbar_links {
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    display: table;
+  }
+
+  .navbar_menuIcon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  .active_class {
+    border-radius: 0;
+  }
+
+  .navbar_links:hover {
+    border-radius: 0;
+  }
 }

@@ -1,26 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavBar({ cartState }) {
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = (e) => {
+    setClicked(!clicked);
+  };
+
+  let location = window.location;
+
   return (
-    <div>
-      <header className="nav_navHeader">
-        <nav className="nav_navContent">
-          <h2>Shop</h2>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/cart">
-                Cart <span>{cartState.cartItems.length}</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    </div>
+    <nav className="navbar_items">
+      <h3 className="navbar_logo">
+        <i className="fab fa-react"></i>
+      </h3>
+      <div className="navbar_menuIcon" onClick={handleClick}>
+        <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
+      </div>
+      <ul className={clicked ? "navbar_navMenu active" : "navbar_navMenu "}>
+        <li onClick={handleClick}>
+          <NavLink
+            to="/home"
+            activeClassName="active_class"
+            className={"navbar_links"}
+            active={location.pathname.startsWith("/home")}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li onClick={handleClick}>
+          <NavLink
+            to="/shop"
+            activeClassName="active_class"
+            className={"navbar_links"}
+            active={location.pathname.startsWith("/shop")}
+          >
+            Shop
+          </NavLink>
+        </li>
+        <li onClick={handleClick}>
+          <NavLink
+            activeClassName="active_class"
+            className={"navbar_links"}
+            to="/hire"
+            active={location.pathname.startsWith("/hire")}
+          >
+            Hire
+          </NavLink>
+        </li>
+        <li onClick={handleClick}>
+          <NavLink
+            to="/consultation"
+            activeClassName="active_class"
+            className="navbar_links"
+            active={location.pathname.startsWith("/consultation")}
+          >
+            Consultation
+          </NavLink>
+        </li>
+        <li onClick={handleClick}>
+          <NavLink
+            to="/blog"
+            activeClassName="active_class"
+            className="navbar_links"
+            active={location.pathname.startsWith("/consultation")}
+          >
+            Blog
+          </NavLink>
+        </li>
+        <li onClick={handleClick}>
+          <NavLink
+            to="/cart"
+            activeClassName="active_class"
+            className={"navbar_links"}
+            active={location.pathname.startsWith("/cart")}
+          >
+            Cart{" "}
+            <span className="cartNumber">{cartState.cartItems.length}</span>
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 }
 const mapStateToProps = (state) => ({

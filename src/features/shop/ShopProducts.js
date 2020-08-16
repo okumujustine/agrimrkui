@@ -1,5 +1,5 @@
 import React from "react";
-import List from "../Products/List";
+import List from "../products/List";
 
 export default function ShopProducts() {
   return (

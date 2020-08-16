@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "./node_modules/react";
+import { connect } from "./node_modules/react-redux";
 
 import ProductCart from "../../components/ProductCart";
 import { getProducts } from "../../redux/actions/products/ProductActions";

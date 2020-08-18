@@ -3,32 +3,51 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+body {
   background-color: #f8f8f8;
 }
 
+.home {
+  position: absolute;
+  width: 96%;
+  margin-left: 2%;
+  top: 90px;
+  z-index: -1;
+}
+
 .prod_image {
-  width: 15%;
-  height: 15%;
+  width: 50%;
+  height: 50%;
+  align-self: center;
 }
 
 .navbar_items {
   height: 80px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   display: flex;
   font-size: 1.2rem;
   border-bottom: 1px solid #206a5d;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+}
+
+.navbar_logo {
+  margin-left: 1vw;
 }
 
 .navbar_navMenu {
   display: grid;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(8, auto);
   grid-gap: 10px;
   width: 80vw;
   list-style-type: none;
   text-align: center;
   justify-content: end;
-  margin-right: 2rem;
+  margin-left: 2vw;
 }
 
 .navbar_links {
@@ -54,13 +73,20 @@
   color: #f8f8f8;
 }
 
-.cartNumber {
+/* .cartNumber {
   background-color: #206a5d;
   color: #f8f8f8;
   height: 30px;
   width: 10px;
   border-radius: 50%;
   font-size: 16px;
+} */
+.cartNumber {
+  background-color: green;
+  color: #f8f8f8;
+  padding: 6px;
+  border-radius: 50px;
+  font-size: 14px;
 }
 
 .active_class {
@@ -68,6 +94,25 @@
   border-radius: 4px;
   transition: all 0.2s ease-out;
   color: #f8f8f8;
+}
+
+.prod_container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  justify-content: space-between;
+  padding: 10px;
+  width: 230px;
+  height: 300px;
+  margin-bottom: 30px;
+  border: 1px solid #ffffff;
+}
+
+.prod_container:hover {
+  cursor: pointer;
+  border: 1px solid #206a5d;
+  /* padding: 8px; */
+  transition: all 0.3s ease-in-out;
 }
 
 @media screen and (max-width: 960px) {
@@ -78,13 +123,15 @@
   .navbar_navMenu {
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 900px;
     width: 100%;
     position: absolute;
     top: 80px;
     left: -100%;
     opacity: 1;
     transition: all 0.5s ease;
+    background-color: #f8f8f8;
+    margin-left: 0px;
   }
 
   .navbar_navMenu.active {

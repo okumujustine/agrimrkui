@@ -1,0 +1,15 @@
+.cart_addToCart {
+  height: 30px;
+  background-color: #206a5d;
+  color: white;
+  border: 0;
+  font-weight: bold;
+}
+
+.cart_addToCart:hover {
+  border: 2px solid #206a5d;
+  background-color: white;
+  color: #206a5d;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}

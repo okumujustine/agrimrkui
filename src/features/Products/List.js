@@ -1,5 +1,5 @@
-import React, { useEffect } from "./node_modules/react";
-import { connect } from "./node_modules/react-redux";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
 import ProductCart from "../../components/ProductCart";
 import { getProducts } from "../../redux/actions/products/ProductActions";
@@ -10,12 +10,19 @@ function List({ getProducts, productsState }) {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
+      }}
+    >
       {productsState.products.length === 0 && <p>No product listings</p>}
       {productsState.products.map((product) => (
-        <div key={product.id}>
+        <React.Fragment key={product.id}>
           <ProductCart product={product} />
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );

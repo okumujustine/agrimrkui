@@ -14,7 +14,7 @@ function CartList({
   decrementItemQuantity,
 }) {
   return (
-    <div>
+    <div className="home">
       {cartState.cartItems.length === 0 ? (
         <h6>You have no item in cart</h6>
       ) : (

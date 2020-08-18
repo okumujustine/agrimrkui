@@ -1,5 +1,5 @@
-import React from "./node_modules/react";
+import React from "react";
 
 export default function Hire() {
-  return <div>product hires</div>;
+  return <div className="home">product hires</div>;
 }

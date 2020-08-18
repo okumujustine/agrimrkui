@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { addToCart } from "../redux/actions/cart/CartActions";
+import "./Product.css";
 
 function ProductCart({ product, addToCart, cartItemsState }) {
   return (
@@ -13,7 +14,10 @@ function ProductCart({ product, addToCart, cartItemsState }) {
       />
       <h3>{product.title}</h3>
       <h3>${product.price}</h3>
-      <button onClick={() => addToCart(cartItemsState, product)}>
+      <button
+        className="cart_addToCart"
+        onClick={() => addToCart(cartItemsState, product)}
+      >
         Add To Cart
       </button>
     </div>

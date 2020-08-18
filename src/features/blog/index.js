@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function index() {
-  return <div>all blogs</div>;
+  return <div className="home">all blogs</div>;
 }

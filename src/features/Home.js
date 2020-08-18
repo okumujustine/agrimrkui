@@ -1,9 +1,15 @@
 import React from "react";
 
+import "./Home.css";
+
+import Banner from "../components/Banner";
+
 function Home() {
   return (
-    <div>
-      <p>Home Component</p>
+    <div className="home">
+      <div className="home_bannerOne">
+        <Banner />
+      </div>
     </div>
   );
 }

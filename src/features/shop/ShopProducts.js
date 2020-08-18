@@ -1,12 +1,33 @@
 import React from "react";
 import List from "../products/List";
 
+import "./Shop.css";
+import Button from "../../components/Button";
+import { deepGreen, white } from "../../components/Colors";
+
 export default function ShopProducts() {
   return (
-    <div>
-      <p>shop products</p>
-      <br />
-      <List />
-    </div>
+    <React.Fragment>
+      <div className="home">
+        <div className="shopping_searchProducts">
+          <input
+            className="shopping_searchInput"
+            placeholder="search for product ..."
+          />
+          <Button
+            title="Search"
+            brdRadius={0}
+            backgroundColor={deepGreen}
+            btnTextColor={white}
+          />
+        </div>
+        <div className="shopping_searchList">
+          <div className="shopping_search">search section</div>
+          <div className="shopping_listing">
+            <List />
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
   );
 }

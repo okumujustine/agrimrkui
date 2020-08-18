@@ -1,0 +1,29 @@
+.banner {
+  display: flex;
+  height: 300px;
+  z-index: 10;
+  padding-top: 80px;
+}
+
+.banner_secOne {
+  width: 50%;
+}
+
+.banner_secTwo {
+  width: 50%;
+}
+
+.banner_buttonGroup {
+  display: flex;
+}
+
+.banner_subHeading {
+  color: #858585;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.banner_img {
+  height: 400px;
+  width: 440px;
+}

@@ -9,8 +9,6 @@ function NavBar({ cartState }) {
     setClicked(!clicked);
   };
 
-  let location = window.location;
-
   return (
     <nav className="navbar_items">
       <h3 className="navbar_logo">
@@ -25,9 +23,26 @@ function NavBar({ cartState }) {
             to="/home"
             activeClassName="active_class"
             className={"navbar_links"}
-            active={location.pathname.startsWith("/home")}
           >
             Home
+          </NavLink>
+        </li>
+        <li onClick={handleClick}>
+          <NavLink
+            to="/login"
+            activeClassName="active_class"
+            className={"navbar_links"}
+          >
+            Login
+          </NavLink>
+        </li>
+        <li onClick={handleClick}>
+          <NavLink
+            to="/register"
+            activeClassName="active_class"
+            className={"navbar_links"}
+          >
+            Register
           </NavLink>
         </li>
         <li onClick={handleClick}>
@@ -35,7 +50,6 @@ function NavBar({ cartState }) {
             to="/shop"
             activeClassName="active_class"
             className={"navbar_links"}
-            active={location.pathname.startsWith("/shop")}
           >
             Shop
           </NavLink>
@@ -45,7 +59,6 @@ function NavBar({ cartState }) {
             activeClassName="active_class"
             className={"navbar_links"}
             to="/hire"
-            active={location.pathname.startsWith("/hire")}
           >
             Hire
           </NavLink>
@@ -55,7 +68,6 @@ function NavBar({ cartState }) {
             to="/consultation"
             activeClassName="active_class"
             className="navbar_links"
-            active={location.pathname.startsWith("/consultation")}
           >
             Consultation
           </NavLink>
@@ -65,7 +77,6 @@ function NavBar({ cartState }) {
             to="/blog"
             activeClassName="active_class"
             className="navbar_links"
-            active={location.pathname.startsWith("/consultation")}
           >
             Blog
           </NavLink>
@@ -75,7 +86,6 @@ function NavBar({ cartState }) {
             to="/cart"
             activeClassName="active_class"
             className={"navbar_links"}
-            active={location.pathname.startsWith("/cart")}
           >
             Cart{" "}
             <span className="cartNumber">{cartState.cartItems.length}</span>

@@ -1,0 +1,60 @@
+.auth_registerContainer {
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.auth_firstLastName {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.auth_firstName {
+  margin-right: 10px;
+}
+
+.margin_10 {
+  margin-right: 10px;
+}
+
+.percent_100 {
+  width: 100%;
+}
+
+.percent_94 {
+  width: 94%;
+}
+
+.auth_contryDistrict {
+  display: flex;
+  flex-direction: row;
+}
+
+.auth_passwordConfirm {
+  display: flex;
+}
+
+.height_40 {
+  height: 40px !important;
+  padding-left: 20px;
+  margin-bottom: 5px;
+}
+
+.auth_button {
+  height: 40px;
+  background-color: green;
+  color: white;
+  border: 0;
+  cursor: pointer;
+}
+
+.auth_button:hover {
+  border: 2px solid green;
+  color: green;
+  background-color: white;
+  font-weight: 600;
+}

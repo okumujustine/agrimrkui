@@ -9,6 +9,8 @@ import ShopProducts from "./features/shop/ShopProducts";
 import Hire from "./features/products/Hire";
 import Blog from "./features/blog";
 import Consultation from "./features/consultation";
+import Login from "./features/auth/Login";
+import Register from "./features/auth/Register";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path="/home" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route path="/shop" component={ShopProducts} />
           <Route path="/hire" component={Hire} />
           <Route path="/consultation" component={Consultation} />

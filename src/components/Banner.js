@@ -11,8 +11,9 @@ export default function Banner() {
       <div className="banner_secOne">
         <div>
           <h1 style={{ color: deepGreen }}>
-            The fastest way to carry out <br />
-            Agriculture with <br />
+            The best and easiest way to carry out modern
+            <br />
+            Agriculture activities with <br />
             Ease.
           </h1>
         </div>
@@ -33,7 +34,7 @@ export default function Banner() {
         </div>
       </div>
       <div className="banner_secTwo">
-        <img src={agpng} className="banner_img" alt="banner image one" />
+        {/* <img src={agpng} className="banner_img" alt="banner image one" /> */}
       </div>
     </div>
   );

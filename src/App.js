@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 import NavBar from "./components/NavBar";
-import Alert from "./components/Alert";
 import Home from "./features/Home";
 import CartList from "./features/cart/CartList";
 import ShopProducts from "./features/shop/ShopProducts";
@@ -24,7 +25,7 @@ function App({ loadUser }) {
     <React.Fragment>
       <Router>
         <NavBar />
-        <Alert />
+        <ToastContainer autoClose={4000} />
         <Switch>
           <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={Login} />

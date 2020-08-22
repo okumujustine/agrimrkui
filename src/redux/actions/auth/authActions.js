@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 import {
   USER_LOADING,
@@ -56,19 +57,13 @@ export const loginUser = (user) => (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: res.data.data,
       });
+      toast.success(`${user.contact} successfuly logged in`);
     })
     .catch((error) => {
       dispatch({
         type: LOGIN_FAILED,
       });
-      const errorObj = {
-        message: error.response.data.message,
-        status: error.response.status,
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errorObj,
-      });
+      toast.error(error.response.data.message);
     });
 };
 

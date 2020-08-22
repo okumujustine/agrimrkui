@@ -1,10 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import "./LoginRegister.css";
 import { loginUser } from "../../redux/actions/auth/authActions";
 
-function Register({ loginUser }) {
+function Register({ loginUser, authState }) {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [country, setCountry] = React.useState("");
@@ -14,13 +15,19 @@ function Register({ loginUser }) {
   const [confirm, setConfirm] = React.useState("");
 
   const userData = {
-    // firstName,
-    // lastName,
-    // country,
-    // district,
+    firstName,
+    lastName,
+    country,
+    district,
     contact,
     password,
   };
+
+  const { isAuthenticated } = authState;
+
+  if (isAuthenticated) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <div className="home">
@@ -83,4 +90,8 @@ function Register({ loginUser }) {
   );
 }
 
-export default connect(null, { loginUser })(Register);
+const mapStateToProps = (state) => ({
+  authState: state.authReducer,
+});
+
+export default connect(mapStateToProps, { loginUser })(Register);

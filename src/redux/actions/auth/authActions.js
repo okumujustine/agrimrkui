@@ -5,7 +5,26 @@ import {
   USER_LOADED,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
+  AUTH_ERROR,
+  GET_ERRORS,
 } from "../types";
+
+export const loadUser = () => (dispatch, getState) => {
+  dispatch({ type: USER_LOADING });
+
+  axios
+    .get("http://127.0.0.1:5000/auth/user", tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      dispatch({ type: AUTH_ERROR });
+    });
+};
 
 export const registerUser = (user) => (dispatch) => {
   console.log(user);
@@ -41,6 +60,14 @@ export const loginUser = (user) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: LOGIN_FAILED,
+      });
+      const errorObj = {
+        message: error.response.data.message,
+        status: error.response.status,
+      };
+      dispatch({
+        type: GET_ERRORS,
+        payload: errorObj,
       });
     });
 };

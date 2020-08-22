@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: false,
+  isAuthenticated: null,
   isLoading: false,
   user: null,
 };
@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
     case USER_LOADING:
       return {
         ...state,
+        isAuthenticated: null,
         isLoading: true,
       };
     case USER_LOADED:

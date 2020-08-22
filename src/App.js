@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 
 import "./App.css";
-import Home from "./features/Home";
 import NavBar from "./components/NavBar";
+import Alert from "./components/Alert";
+import Home from "./features/Home";
 import CartList from "./features/cart/CartList";
 import ShopProducts from "./features/shop/ShopProducts";
 import Hire from "./features/products/Hire";
@@ -11,12 +13,18 @@ import Blog from "./features/blog";
 import Consultation from "./features/consultation";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
+import { loadUser } from "./redux/actions/auth/authActions";
 
-function App() {
+function App({ loadUser }) {
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <React.Fragment>
       <Router>
         <NavBar />
+        <Alert />
         <Switch>
           <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={Login} />
@@ -32,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, { loadUser })(App);

@@ -3,24 +3,29 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import "./LoginRegister.css";
-import { loginUser } from "../../redux/actions/auth/authActions";
+import { registerUser } from "../../redux/actions/auth/authActions";
 
-function Register({ loginUser, authState }) {
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
+function Register({ registerUser, authState }) {
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [country, setCountry] = React.useState("");
   const [district, setDistrict] = React.useState("");
   const [contact, setContact] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirm, setConfirm] = React.useState("");
+  const [region, setRegion] = React.useState("");
 
   const userData = {
-    firstName,
-    lastName,
+    name,
     country,
+    region,
     district,
     contact,
+    email,
     password,
+    status: 1,
+    role: "agronomist",
+    confirm,
   };
 
   const { isAuthenticated } = authState;
@@ -36,24 +41,24 @@ function Register({ loginUser, authState }) {
         <div className="auth_firstLastName">
           <input
             className="auth_firstName percent_94 margin_10 height_40"
-            placeholder="Firstname"
-            value={firstName}
-            name="firstName"
-            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="Name"
+            value={name}
+            name="Name"
+            onChange={(e) => setName(e.target.value)}
           ></input>
           <input
             className="auth_lastName percent_94 height_40"
-            placeholder="Lastname"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
           ></input>
         </div>
         <div className="auth_contryDistrict">
           <input
             className="percent_94 margin_10 height_40"
             placeholder="Country"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
           ></input>
           <input
             className="percent_94 height_40"
@@ -62,12 +67,20 @@ function Register({ loginUser, authState }) {
             onChange={(e) => setDistrict(e.target.value)}
           ></input>
         </div>
-        <input
-          className="percent_100 height_40"
-          placeholder="Contact"
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
-        ></input>
+        <div className="auth_passwordConfirm">
+          <input
+            className="percent_100 height_40 margin_10"
+            placeholder="Contact"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          ></input>
+          <input
+            className="percent_100 height_40"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></input>
+        </div>
         <div className="auth_passwordConfirm">
           <input
             className="percent_100 margin_10 height_40"
@@ -82,7 +95,7 @@ function Register({ loginUser, authState }) {
             onChange={(e) => setConfirm(e.target.value)}
           ></input>
         </div>
-        <button className="auth_button" onClick={() => loginUser(userData)}>
+        <button className="auth_button" onClick={() => registerUser(userData)}>
           Register
         </button>
       </div>
@@ -94,4 +107,4 @@ const mapStateToProps = (state) => ({
   authState: state.authReducer,
 });
 
-export default connect(mapStateToProps, { loginUser })(Register);
+export default connect(mapStateToProps, { registerUser })(Register);

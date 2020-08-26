@@ -10,7 +10,7 @@ import Home from "./features/Home";
 import CartList from "./features/cart/CartList";
 import ShopProducts from "./features/shop/ShopProducts";
 import Hire from "./features/products/Hire";
-import Blog from "./features/blog";
+import Blog from "./features/blog/Blogs";
 import Consultation from "./features/consultation";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";

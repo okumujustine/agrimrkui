@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import {
   removeFromCart,
   addToCart,
   incrementItemQuantity,
   decrementItemQuantity,
 } from "../../redux/actions/cart/CartActions";
+import { addOrders } from "../../redux/actions/orders/ordersAction";
 import c from "../../static/products/876661122392077_1.jpg";
 
 function CartList({
@@ -13,6 +15,7 @@ function CartList({
   removeFromCart,
   incrementItemQuantity,
   decrementItemQuantity,
+  addOrders,
 }) {
   return (
     <div className="home">
@@ -72,7 +75,7 @@ function CartList({
                         decrementItemQuantity(cartState.cartItems, product)
                       }
                     >
-                      <i class="fas fa-minus-circle"></i>
+                      <i className="fas fa-minus-circle"></i>
                     </button>
                     <h4>{product.count}</h4>
                     <button
@@ -80,7 +83,7 @@ function CartList({
                         incrementItemQuantity(cartState.cartItems, product)
                       }
                     >
-                      <i class="fas fa-plus-circle"></i>
+                      <i className="fas fa-plus-circle"></i>
                     </button>
                   </div>
                 </div>
@@ -91,7 +94,7 @@ function CartList({
                   <button
                     onClick={() => removeFromCart(cartState.cartItems, product)}
                   >
-                    <i class="fas fa-trash-alt"></i>
+                    <i className="fas fa-trash-alt"></i>
                   </button>
                 </div>
               </div>
@@ -127,7 +130,7 @@ function CartList({
                 </h5>
               </div>
               <br />
-              <button>CHECKOUT</button>
+              <button onClick={addOrders}>CHECKOUT</button>
             </div>
           </div>
         </div>
@@ -145,4 +148,5 @@ export default connect(mapStateToProps, {
   addToCart,
   incrementItemQuantity,
   decrementItemQuantity,
+  addOrders,
 })(CartList);

@@ -13,7 +13,7 @@ export default function Banner() {
           <h1 style={{ color: deepGreen }}>
             The best and easiest way to carry out modern
             <br />
-            Agriculture activities with <br />
+            Agricultural activities with <br />
             Ease.
           </h1>
         </div>

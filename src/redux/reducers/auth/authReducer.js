@@ -6,10 +6,12 @@ import {
   LOGIN_FAILED,
   REGISTER_FAILED,
   LOGOUT_SUCCESS,
+  REFRESH_TOKEN_SUCCESS,
 } from "../../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
+  refreshToken: localStorage.getItem("refreshToken"),
   isAuthenticated: null,
   isLoading: false,
   user: null,
@@ -35,14 +37,24 @@ export default (state = initialState, action) => {
     case LOGOUT_SUCCESS:
     case REGISTER_FAILED:
       localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
       return {
         token: null,
         isAuthenticated: false,
         isLoading: false,
         user: null,
       };
+    case REFRESH_TOKEN_SUCCESS:
+      localStorage.setItem("token", action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        isLoading: false,
+      };
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("refreshToken", action.payload.refreshToken);
       return {
         ...state,
         ...action.payload,

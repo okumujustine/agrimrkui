@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-function NavBar({ cartState, authState }) {
+import { logoutUser } from "../redux/actions/auth/authActions";
+
+function NavBar({ cartState, authState, logoutUser }) {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = (e) => {
@@ -143,6 +145,9 @@ function NavBar({ cartState, authState }) {
           Cart <span className="cartNumber">{cartState.cartItems.length}</span>
         </NavLink>
       </li>
+      <li>
+        <button onClick={() => logoutUser()}>logout</button>
+      </li>
     </ul>
   );
 
@@ -167,4 +172,4 @@ const mapStateToProps = (state) => ({
   authState: state.authReducer,
 });
 
-export default connect(mapStateToProps, {})(NavBar);
+export default connect(mapStateToProps, { logoutUser })(NavBar);

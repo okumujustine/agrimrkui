@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import Rave from "react-flutterwave-rave";
 
 import {
   removeFromCart,
@@ -9,6 +10,7 @@ import {
 } from "../../redux/actions/cart/CartActions";
 import { addOrders } from "../../redux/actions/orders/ordersAction";
 import c from "../../static/products/876661122392077_1.jpg";
+import { toast } from "react-toastify";
 
 function CartList({
   cartState,
@@ -16,7 +18,70 @@ function CartList({
   incrementItemQuantity,
   decrementItemQuantity,
   addOrders,
+  authState,
 }) {
+  const API_publicKey_p = "FLWPUBK-006797527a53e4f60c1771a8b3d78da8-X";
+  const API_publicKey = "FLWPUBK_TEST-1c33f1ea951399fbd663cb875dadd1be-X";
+
+  const handlePay = () => {
+    window.getpaidSetup({
+      PBFPubKey: API_publicKey,
+      customer_email: "okumujustine@gmail.com",
+      amount: 500,
+      customer_phone: "234099940409",
+      currency: "UGX",
+      payment_option: "mobilemoneyuganda",
+      txref: "new-sale" + new Date(),
+      meta: [
+        {
+          metaname: "flightID",
+          metavalue: "AP1234",
+        },
+      ],
+      onclose: function () {},
+      callback: function (response) {
+        var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
+        console.log("This is the response returned after a charge", response);
+        if (
+          response.data.chargeResponseCode == "00" ||
+          response.data.chargeResponseCode == "0"
+        ) {
+          // redirect to a success page
+        } else {
+          // redirect to a failure page.
+        }
+
+        // x.close(); // use this to close the modal immediately after payment.
+      },
+    });
+    // window.getpaidSetup({
+    //   amount: cartState.cartItems.reduce((a, c) => a + c.price * c.count, 0),
+    //   txref: "rave-checkout-1508751596",
+    //   redirect_url: "http://localhost:3000/cart",
+    //   PBFPubKey: publicKey,
+    //   custom_title: "Agro Pay",
+    //   payment_method: "both",
+    //   customer_email: authState.user.email,
+    //   customer_phone: authState.user.phone,
+    //   currency: "UGX",
+    //   onclose: function () {
+    //     // toast.error("Ouch! Please try again!");
+    //   },
+    //   callback: function (res) {
+    //     //  var flw_ref = d.tx.flwRef;
+    //     console.log(res);
+    //     if (res.success === false) {
+    //       toast.error("Ouch! Please try again!");
+    //     }
+    //     if (res.respcode) {
+    //       if (res.respcode === "00") {
+    //         toast.error("Wow! That was fast and easy!");
+    //       }
+    //     }
+    //   },
+    // });
+  };
+
   return (
     <div className="home">
       {cartState.cartItems.length === 0 ? (
@@ -130,7 +195,8 @@ function CartList({
                 </h5>
               </div>
               <br />
-              <button onClick={addOrders}>CHECKOUT</button>
+              {/* <button onClick={addOrders}>CHECKOUT</button> */}
+              <button onClick={handlePay}>PAY</button>
             </div>
           </div>
         </div>
@@ -141,6 +207,7 @@ function CartList({
 
 const mapStateToProps = (state) => ({
   cartState: state.cartReducer,
+  authState: state.authReducer,
 });
 
 export default connect(mapStateToProps, {

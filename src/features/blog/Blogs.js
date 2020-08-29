@@ -15,7 +15,6 @@ function Blogs({ getBlogs, blogState }) {
 
   return (
     <div className="home">
-      <button onClick={() => setModalOpen(!modalOpen)}>Add Blog</button>
       <Modal
         onRequestClose={() => setModalOpen(false)}
         isOpen={modalOpen}
@@ -24,17 +23,38 @@ function Blogs({ getBlogs, blogState }) {
         <button onClick={() => setModalOpen(!modalOpen)}>close</button>
         <AddBlog />
       </Modal>
-
-      {blogState.blogs.map((item, index) => {
-        return (
-          <BlogItem
-            blog_id={item.id}
-            title={item.title}
-            content={item.content}
-            key={index}
-          />
-        );
-      })}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <div style={{ width: "20%", position: "fixed" }}>seaech</div>
+        <div
+          style={{
+            width: "80%",
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            position: "absolute",
+            right: 0,
+          }}
+        >
+          <button onClick={() => setModalOpen(!modalOpen)}>Add Blog</button>
+          {blogState.blogs.map((item, index) => {
+            return (
+              <BlogItem
+                blog_id={item.id}
+                title={item.title}
+                content={item.content}
+                user={item.user}
+                key={index}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

@@ -14,6 +14,7 @@ import Blog from "./features/blog/Blogs";
 import Consultation from "./features/consultation";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
+import BlogComment from "./features/blog/BlogComment";
 import { loadUser } from "./redux/actions/auth/authActions";
 
 function App({ loadUser }) {
@@ -35,6 +36,7 @@ function App({ loadUser }) {
           <Route path="/consultation" component={Consultation} />
           <Route path="/blog" component={Blog} />
           <Route path="/cart" component={CartList} />
+          <Route path="/comment/:id" component={BlogComment} />
         </Switch>
       </Router>
     </React.Fragment>

@@ -1,10 +1,11 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import axios from "axios";
 
 export default function BlogComment({ location }) {
   let { id } = useParams();
   const { state } = location;
+
   const [comments, setComments] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
 
@@ -21,6 +22,11 @@ export default function BlogComment({ location }) {
         console.log(error);
       });
   }, []);
+
+  if (!id || !state) {
+    // toast.error("Method not allowed");
+    return <Redirect to="/blog" />;
+  }
 
   return (
     <div className="home">

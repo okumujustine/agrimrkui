@@ -28,9 +28,11 @@ function CartList({
       PBFPubKey: API_publicKey,
       customer_email: "okumujustine@gmail.com",
       amount: 500,
-      customer_phone: "234099940409",
+      customer_phone: "256781459239",
       currency: "UGX",
       payment_option: "mobilemoneyuganda",
+      fullname: "Okumu Justine",
+      // redirect_url: "https://rave-webhook.herokuapp.com/receivepayment",
       txref: "new-sale" + new Date(),
       meta: [
         {
@@ -38,20 +40,20 @@ function CartList({
           metavalue: "AP1234",
         },
       ],
-      onclose: function () {},
-      callback: function (response) {
-        var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
-        console.log("This is the response returned after a charge", response);
-        if (
-          response.data.chargeResponseCode == "00" ||
-          response.data.chargeResponseCode == "0"
-        ) {
-          // redirect to a success page
-        } else {
-          // redirect to a failure page.
-        }
 
-        // x.close(); // use this to close the modal immediately after payment.
+      callback: function (d) {
+        if (d.tx) {
+          var flw_ref = d.tx.flwRef;
+          if (
+            d.tx.chargeResponseCode === "00" ||
+            d.tx.chargeResponseCode === "0"
+          ) {
+            toast.success("Wow! That was fast and easy!");
+          } else {
+            toast.error("Ouch! Please try again!");
+          }
+        }
+        console.log(d);
       },
     });
     // window.getpaidSetup({

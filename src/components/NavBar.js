@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { logoutUser } from "../redux/actions/auth/authActions";
 
@@ -10,7 +10,8 @@ function NavBar({ cartState, authState, logoutUser }) {
   const handleClick = (e) => {
     setClicked(!clicked);
   };
-
+  let location = useLocation();
+  // console.log(location.hash);
   const { isAuthenticated } = authState;
   const authLinks = (
     <ul className={clicked ? "navbar_navMenu active" : "navbar_navMenu "}>
@@ -73,6 +74,16 @@ function NavBar({ cartState, authState, logoutUser }) {
           to="/blog"
           activeClassName="active_class"
           className="navbar_links"
+          isActive={(match, location) => {
+            let pathStrings = location.pathname.split("/");
+            if (match) {
+              return true;
+            } else if (pathStrings[1] === "comment") {
+              return true;
+            } else {
+              return false;
+            }
+          }}
         >
           Blog
         </NavLink>

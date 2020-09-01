@@ -4,6 +4,7 @@ import List from "../products/List";
 import "./Shop.css";
 import Button from "../../components/Button";
 import { deepGreen, white } from "../../components/Colors";
+import Footer from "../../components/Footer";
 
 export default function ShopProducts() {
   return (

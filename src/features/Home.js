@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import "./Home.css";
 
@@ -9,6 +9,7 @@ import AgriWithUs from "../components/AgriWithUs";
 import Button from "../components/Button";
 
 import subbg from "../static/subbg.png";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
@@ -97,30 +98,7 @@ function Home() {
           />
         </div>
       </div>
-      <div
-        style={{
-          height: "150px",
-          backgroundColor: "#206A5D",
-          marginLeft: "-27px",
-          marginRight: "-27px",
-        }}
-      >
-        footer
-      </div>
-      <div
-        style={{
-          backgroundColor: "rgb(2,2,2, 0.7)",
-          marginLeft: "-27px",
-          marginRight: "-27px",
-          textAlign: "center",
-          padding: "5px",
-          borderTop: "1px solid black",
-          color: "#ffffff",
-          fontWeight: "bold",
-        }}
-      >
-        © 2020 Agro Heights Tech Limited, Yes, all rights
-      </div>
+      <Footer />
     </div>
   );
 }

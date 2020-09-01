@@ -10,7 +10,7 @@ export default function Banner() {
     <div className="banner">
       <div className="banner_secOne">
         <div>
-          <h1 style={{ color: deepGreen }}>
+          <h1 className="text-3xl" style={{ color: deepGreen }}>
             The best and easiest way to carry out modern
             <br />
             Agricultural activities with <br />

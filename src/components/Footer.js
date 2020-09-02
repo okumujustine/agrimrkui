@@ -6,18 +6,14 @@ export default function Footer() {
       <div
         style={{
           height: "150px",
-          backgroundColor: "#206A5D",
-          marginLeft: "-27px",
-          marginRight: "-27px",
         }}
+        className="bg-agrisolidgreen"
       >
         footer
       </div>
       <div
         style={{
           backgroundColor: "rgb(2,2,2, 0.7)",
-          marginLeft: "-27px",
-          marginRight: "-27px",
           textAlign: "center",
           padding: "5px",
           borderTop: "1px solid black",

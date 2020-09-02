@@ -13,9 +13,7 @@
   line-height: 40px;
 } */
 
-.banner_secTwo {
-  width: 35%;
-  height: 100%;
+.banner_backgroundImage {
   background-image: url("../static/agpng.png");
   background-size: cover;
   background-repeat: no-repeat;

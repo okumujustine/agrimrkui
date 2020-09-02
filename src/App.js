@@ -21,6 +21,7 @@ import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 import BlogComment from "./features/blog/BlogComment";
 import { loadUser } from "./redux/actions/auth/authActions";
+import Footer from "./components/Footer";
 
 function App({ loadUser }) {
   const [show, setShow] = React.useState(false);
@@ -31,59 +32,15 @@ function App({ loadUser }) {
   return (
     <React.Fragment>
       <Router>
-        <div className="flex flex-col">
-          <header className="bg-gray-900 sm:flex sm:justify-between">
-            <div className="flex items-center justify-between px-4 py-3">
-              <div className="text-white">logo</div>
-              <div className="sm:hidden">
-                <button
-                  onClick={() => setShow(!show)}
-                  type="button"
-                  className="text-gray-500 hover:text-white focus:text-white focus:outline-none"
-                >
-                  {show ? (
-                    <i className="fas fa-times"></i>
-                  ) : (
-                    <i className="fas fa-bars"></i>
-                  )}
-                </button>
-              </div>
-            </div>
-            <div
-              className={
-                show
-                  ? "px-2 pt-2 pb-4 block sm:block"
-                  : "px-2 pt-2 pb-4 hidden sm:flex"
-              }
-            >
-              <NavLink
-                to="/home"
-                className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 text-white font-semibold hover:bg-gray-800"
-              >
-                {" "}
-                Home{" "}
-              </NavLink>
-              <NavLink
-                to="/hire"
-                className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-white font-semibold hover:bg-gray-800"
-              >
-                {" "}
-                Hire{" "}
-              </NavLink>
-              <NavLink
-                to="/consultation"
-                className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-white font-semibold hover:bg-gray-800"
-              >
-                {" "}
-                Consultation{" "}
-              </NavLink>
-            </div>
-          </header>
-          <div>
-            <p>body</p>
+        <div className="flex flex-col bg-agribackgroung">
+          <NavBar />
+          <div className="px-4">
+            <Switch>
+              <Route exact path="/home" component={Home} />
+            </Switch>
           </div>
           <div>
-            <p>Fooer</p>
+            <Footer />
           </div>
         </div>
       </Router>

@@ -14,7 +14,6 @@ body {
   width: 96%;
   margin-left: 2%;
   top: 90px;
-  z-index: -1;
 }
 
 .prod_image {
@@ -91,7 +90,6 @@ body {
 
 .active_class {
   background-color: #206a5d;
-  border-radius: 4px;
   transition: all 0.2s ease-out;
   color: #f8f8f8;
 }

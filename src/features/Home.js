@@ -13,19 +13,13 @@ import Footer from "../components/Footer";
 
 function Home() {
   return (
-    <div className="home">
-      <div className="home_bannerOne">
-        <Banner />
-      </div>
-      <div style={{ marginBottom: "70px" }}>
-        <TitleHolder service="OUR SERVICES" customWidth="11%" />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+    <div>
+      <Banner />
+      <div>
+        <h1 className="text-agrisolidgreen underline font-bold pb-10">
+          OUR SERVICES
+        </h1>
+        <div className="mb-8 flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row md:justify-around lg:justify-around  xl:justify-around sm:justify-around">
           <ServicesCard
             icon="fas fa-tractor"
             title="<h4>Selling  and buying <br /> of agricultural <br />
@@ -34,71 +28,58 @@ function Home() {
           />
           <ServicesCard
             icon="fas fa-luggage-cart"
-            title="<h4>
-          Farm tools sales <br /> hire and <br /> maintenance
-        </h4>"
+            title="<h4>Selling  and buying <br /> of agricultural <br />
+              inputs
+              </h4>"
           />
           <ServicesCard
-            icon="far fa-handshake"
-            title="<h4>Consultation with <br /> qualified <br /> agronomist</h4>"
+            icon="fas fa-handshake"
+            title="<h4>Selling  and buying <br /> of agricultural <br />
+              inputs
+              </h4>"
           />
         </div>
       </div>
-      <div
-        style={{
-          height: "600px",
-          backgroundColor: "#ffffff",
-          marginLeft: "-25px",
-          marginRight: "-25px",
-          padding: "30px",
-          marginBottom: "40px",
-        }}
-      >
-        <TitleHolder service="AGRICULTURE WITH US" customWidth="17%" />
-        <div>
-          <AgriWithUs />
-          <AgriWithUs />
-          <AgriWithUs />
-          <AgriWithUs />
-        </div>
+      <div>
+        <h1 className="text-agrisolidgreen underline font-bold pb-5">
+          AGRICULTURE WITH US
+        </h1>
+        <AgriWithUs />
+        <AgriWithUs />
+        <AgriWithUs />
+        <AgriWithUs />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingBottom: "30px",
-          height: "230px",
-          backgroundImage: `url(${subbg})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          marginLeft: "-25px",
-          marginRight: "-25px",
-        }}
-      >
-        <h3 style={{ color: "#206A5D", paddingBottom: "15px" }}>
-          SUBSCRIBE TO GET UPDATES
-        </h3>
+      <div>
         <div
+          className="flex flex-col justify-center items-center"
           style={{
-            display: "flex",
-            width: "70%",
-            justifyContent: "space-between",
+            paddingBottom: "30px",
+            height: "230px",
+            backgroundImage: `url(${subbg})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
           }}
         >
-          <input
-            style={{ width: "80%", paddingLeft: "20px" }}
-            placeholder="email address e.g okumujustine01@gmail.com"
-          />
-          <Button
-            title="Subscribe"
-            backgroundColor="#206A5D"
-            btnTextColor="#ffffff"
-          />
+          <h3 style={{ color: "#206A5D", paddingBottom: "15px" }}>
+            SUBSCRIBE TO GET UPDATES
+          </h3>
+          <div
+            style={{
+              display: "flex",
+              width: "70%",
+              justifyContent: "space-between",
+            }}
+          >
+            <input
+              className="w-full pl-5 h-12 mr-3"
+              placeholder="email address e.g okumujustine01@gmail.com"
+            />
+            <button className="bg-agrisolidgreen text-white p-3">
+              Subscribe
+            </button>
+          </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

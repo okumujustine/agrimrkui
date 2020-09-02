@@ -6,58 +6,19 @@ import tools from "../static/tools.png";
 
 export default function ServicesCard({ title, icon }) {
   return (
-    <div
-      style={{
-        // backgroundColor: "#ffffff",
-        height: "400px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        width: "30%",
-        padding: "30px",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          backgroundColor: "#ffffff",
-          width: "200px",
-          height: "200px",
-          borderRadius: "50%",
-          justifyContent: "center",
-          alignItems: "center",
-          border: "2px solid #206A5D",
-        }}
-      >
-        <div>
-          <i
-            className={icon}
-            style={{ fontSize: "100px", color: "#767676" }}
-          ></i>
+    <div>
+      <div className="flex flex-col items-center mb-10">
+        <div className="mb-2 flex border-agrisolidgreen border-2 bg-white rounded-full h-40 w-40 items-center justify-center">
+          {" "}
+          <i className={`${icon} text-beautifulgray text-6xl`}></i>
         </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          textAlign: "center",
-        }}
-      >
-        <div dangerouslySetInnerHTML={{ __html: title }} />
-      </div>
-      <div
-        style={{
-          width: "50%",
-          backgroundColor: "#206A5D",
-          borderRadius: "50px",
-          padding: "10px",
-          textAlign: "center",
-          color: "#ffffff",
-          fontWeight: "bold",
-        }}
-      >
-        Get started
+        <div
+          dangerouslySetInnerHTML={{ __html: title }}
+          className="mb-2 text-beautifulgray"
+        />
+        <button className="text-white font-bold py-2 px-4 rounded-full bg-agrisolidgreen">
+          Get started
+        </button>
       </div>
     </div>
   );

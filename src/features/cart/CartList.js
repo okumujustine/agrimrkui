@@ -85,37 +85,21 @@ function CartList({
   };
 
   return (
-    <div className="home">
+    <div>
       {cartState.cartItems.length === 0 ? (
         <h6>You have no item in cart</h6>
       ) : (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div
-            style={{ display: "flex", width: "70%", flexDirection: "column" }}
-          >
+        <div className="flex justify-between">
+          <div className="flex flex-col w-8/12">
             {/* loop starts here */}
             {cartState.cartItems.map((product, index) => (
               <div
                 key={index}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "100%",
-                  backgroundColor: "#ffffff",
-                  padding: "20px",
-                  paddingBottom: "12px",
-                  flexGrow: 1,
-                  alignItems: "center",
-                  marginBottom: "5px",
-                }}
+                className="flex justify-between w-full mb-5 pb-3 items-center bg-white p-4"
               >
-                <div style={{ flexBasis: "60%" }}>
-                  <div style={{ display: "flex" }}>
-                    <img
-                      style={{ width: "20%", height: "20%" }}
-                      src={c}
-                      alt="products"
-                    />
+                <div className="w-8/12">
+                  <div className="flex">
+                    <img className="h-2/12 w-2/12" src={c} alt="products" />
                     <div style={{ padding: "10px" }}>
                       <h4 style={{ paddingBottom: "8px" }}>{product.title}</h4>
                       <small style={{ lineHeight: "15px" }}>
@@ -125,18 +109,12 @@ function CartList({
                         took a galley of type and scrambled it to make a type
                         specimen book. It has survived not only five centuries
                       </small>
-                      <h4 style={{ paddingTop: "8px" }}>{product.price}</h4>
+                      <h4 className="pt-2">{product.price}</h4>
                     </div>
                   </div>
                 </div>
-                <div style={{ flexBasis: "15%" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
+                <div className="w-1/12 ml-1">
+                  <div className="flex items-center justify-between">
                     <button
                       onClick={() =>
                         decrementItemQuantity(cartState.cartItems, product)

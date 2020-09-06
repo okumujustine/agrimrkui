@@ -4,12 +4,8 @@ import "./Home.css";
 
 import Banner from "../components/Banner";
 import ServicesCard from "../components/ServicesCard";
-import TitleHolder from "../components/TitleHolder";
 import AgriWithUs from "../components/AgriWithUs";
-import Button from "../components/Button";
-
 import subbg from "../static/subbg.png";
-import Footer from "../components/Footer";
 
 function Home() {
   return (

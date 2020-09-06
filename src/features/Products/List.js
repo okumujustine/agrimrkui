@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import ProductCart from "../../components/ProductCart";
 import { getProducts } from "../../redux/actions/products/ProductActions";
-import Footer from "../../components/Footer";
 
 function List({ getProducts, productsState }) {
   useEffect(() => {
@@ -12,14 +11,7 @@ function List({ getProducts, productsState }) {
 
   return (
     <React.Fragment>
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {productsState.products.length === 0 && <p>No product listings</p>}
         {productsState.products.map((product) => (
           <React.Fragment key={product.id}>

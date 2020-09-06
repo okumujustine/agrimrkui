@@ -1,18 +1,16 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import PhoneInput from "react-phone-number-input";
-import CustimInput from "react-phone-number-input/input";
+import PhoneInput from "react-phone-number-input/input";
 
 import { loginUser } from "../../redux/actions/auth/authActions";
 
 function Login({ loginUser, authState }) {
-  const [contact, setContact] = React.useState("");
-  // const [value, setValue] = React.useState();
+  const [value, setValue] = React.useState();
   const [password, setPassword] = React.useState("");
 
   const userData = {
-    contact,
+    value,
     password,
   };
 
@@ -23,29 +21,46 @@ function Login({ loginUser, authState }) {
   }
 
   return (
-    <div className="home">
-      <div>
-        {/* <PhoneInput
+    <div
+      className="flex flex-col items-center justify-center w-full"
+      style={{ height: "70vh" }}
+    >
+      <div class="mb-4 w-5/12">
+        <label
+          class="block text-agrisolidgreen text-sm font-bold mb-2"
+          for="password"
+        >
+          Password
+        </label>
+        <PhoneInput
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          placeholder="contact"
           country="UG"
-          style={{ border: "3px solid red" }}
-          placeholder="Enter phone number"
           value={value}
           onChange={setValue}
-        /> */}
-        {/* <CustimInput country="US" value={value} onChange={setValue} /> */}
-        <input
-          type="number"
-          placeholder="contact"
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
-        ></input>
-        <input
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button onClick={() => loginUser(userData)}>Login</button>
+        />
       </div>
+      <div class="mb-3 w-5/12">
+        <label
+          class="block text-agrisolidgreen text-sm font-bold mb-2"
+          for="password"
+        >
+          Password
+        </label>
+        <input
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="password"
+          type="password"
+          placeholder="******************"
+        />
+      </div>
+      <button
+        className="bg-agrisolidgreen text-agribackgroung w-5/12 p-2 rounded font-bold"
+        onClick={() => console.log(userData)}
+      >
+        Login
+      </button>{" "}
+      {/* loginUser(userData) */}
     </div>
   );
 }

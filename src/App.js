@@ -33,10 +33,19 @@ function App({ loadUser }) {
     <React.Fragment>
       <Router>
         <div className="flex flex-col bg-agribackgroung">
+          {/* <ToastContainer autoClose={4000} /> */}
           <NavBar />
           <div className="px-4">
             <Switch>
               <Route exact path="/home" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route path="/shop" component={ShopProducts} />
+              <Route path="/hire" component={Hire} />
+              <Route path="/consultation" component={Consultation} />
+              <Route path="/blog" component={Blog} />
+              <Route path="/cart" component={CartList} />
+              <Route path="/comment/:id" component={BlogComment} />
             </Switch>
           </div>
           <div>
@@ -44,21 +53,6 @@ function App({ loadUser }) {
           </div>
         </div>
       </Router>
-      {/* 
-        <NavBar />
-        <ToastContainer autoClose={4000} />
-        <Switch>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route path="/shop" component={ShopProducts} />
-          <Route path="/hire" component={Hire} />
-          <Route path="/consultation" component={Consultation} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/cart" component={CartList} />
-          <Route path="/comment/:id" component={BlogComment} />
-        </Switch>
-      </Router> */}
     </React.Fragment>
   );
 }

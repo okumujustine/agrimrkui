@@ -14,8 +14,9 @@ function Blogs({ getBlogs, blogState }) {
   }, []);
 
   return (
-    <div className="home">
-      <Modal
+    <div>
+      blog
+      {/* <Modal
         onRequestClose={() => setModalOpen(false)}
         isOpen={modalOpen}
         style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.6)" } }}
@@ -54,7 +55,7 @@ function Blogs({ getBlogs, blogState }) {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

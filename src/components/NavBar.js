@@ -14,16 +14,6 @@ function NavBar({ cartState, authState, logoutUser }) {
   // console.log(location.hash);
   const { isAuthenticated } = authState;
 
-  // <li onClick={handleClick}>
-  //   <NavLink
-  //     to="/blog"
-  //     activeClassName="active_class"
-  //     className="navbar_links"
-  //   >
-  //     Blog
-  //   </NavLink>
-  // </li>
-
   const authLinks = (
     <React.Fragment>
       <div className="flex items-center justify-between px-4 py-3">
@@ -105,6 +95,22 @@ function NavBar({ cartState, authState, logoutUser }) {
           className="block sm:mt-0 sm:ml-2 px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung rounded-full"
         >
           <span className="but">{cartState.cartItems.length}</span>
+        </NavLink>
+        <NavLink
+          to="/login"
+          activeClassName="active_class"
+          className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
+        >
+          {" "}
+          Login{" "}
+        </NavLink>
+        <NavLink
+          to="/register"
+          activeClassName="active_class"
+          className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
+        >
+          {" "}
+          Register{" "}
         </NavLink>
       </div>
     </React.Fragment>

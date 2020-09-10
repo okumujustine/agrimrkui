@@ -10,7 +10,7 @@ function Login({ loginUser, authState }) {
   const [password, setPassword] = React.useState("");
 
   const userData = {
-    value,
+    contact: value,
     password,
   };
 
@@ -51,16 +51,18 @@ function Login({ loginUser, authState }) {
           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           id="password"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="******************"
         />
       </div>
       <button
         className="bg-agrisolidgreen text-agribackgroung w-5/12 p-2 rounded font-bold"
-        onClick={() => console.log(userData)}
+        onClick={() => loginUser(userData)}
       >
         Login
       </button>{" "}
-      {/* loginUser(userData) */}
+      {/*  */}
     </div>
   );
 }

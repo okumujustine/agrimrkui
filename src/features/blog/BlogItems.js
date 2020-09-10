@@ -27,9 +27,7 @@ function BlogItems({ title, content, blog_id, user, delBlog }) {
               content,
             },
           }}
-        >
-          comment
-        </Link>
+        ></Link>
       </footer>
     </div>
   );

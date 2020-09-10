@@ -1,18 +1,21 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import Modal from "react-modal";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import BlogItem from "./BlogItems";
 import { getBlogs } from "../../redux/actions/blog/blogActions";
-import AddBlog from "./AddBlog";
 import { Link } from "react-router-dom";
 
-Modal.setAppElement("#root");
 function Blogs({ getBlogs, blogState }) {
-  const [modalOpen, setModalOpen] = React.useState(false);
+  // window.location.reload();
   React.useEffect(() => {
-    getBlogs();
+    getBlogs(blogState.page, false);
   }, []);
+
+  const fetchBlogs = () => {
+    console.log("more load func");
+    getBlogs(blogState.page + 1, true);
+  };
 
   return (
     <div className="flex flex-col mt-6">
@@ -26,17 +29,24 @@ function Blogs({ getBlogs, blogState }) {
       <div className="flex flex-row">
         <div className="w-2/12">search</div>
         <div className="w-9/12">
-          {blogState.blogs.map((item, index) => {
-            return (
-              <BlogItem
-                blog_id={item.id}
-                title={item.title}
-                content={item.content}
-                user={item.user}
-                key={index}
-              />
-            );
-          })}
+          <InfiniteScroll
+            dataLength={blogState.blogs.length}
+            next={fetchBlogs}
+            hasMore={blogState.notLast}
+            loader={<h4>Loading...</h4>}
+          >
+            {blogState.blogs.map((item, index) => {
+              return (
+                <BlogItem
+                  key={index}
+                  blog_id={item.id}
+                  title={item.title}
+                  content={item.content}
+                  user={item.user}
+                />
+              );
+            })}
+          </InfiniteScroll>
         </div>
       </div>
     </div>

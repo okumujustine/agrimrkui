@@ -34,7 +34,7 @@ function App({ loadUser }) {
     <React.Fragment>
       <Router>
         <div className="flex flex-col bg-agribackgroung">
-          {/* <ToastContainer autoClose={4000} /> */}
+          <ToastContainer autoClose={4000} />
           <NavBar />
           <div className="px-4 min-h-screen">
             <Switch>

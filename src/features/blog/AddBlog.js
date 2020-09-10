@@ -79,6 +79,8 @@ function AddBlog({ addBlog }) {
         </div>
         <label>Content</label>
         <ReactQuill
+          className="bg-white"
+          placeholder="Type something here ..."
           modules={modules}
           formats={formats}
           theme="snow"
@@ -86,7 +88,12 @@ function AddBlog({ addBlog }) {
           onChange={setValue}
         />
       </div>
-      <button onClick={handleEditorChange}>Post</button>
+      <button
+        className="bg-agrisolidgreen text-agribackgroung p-2 rounded-full mt-2 font-bold"
+        onClick={handleEditorChange}
+      >
+        Post Blog <i class="fas fa-paper-plane"></i>
+      </button>
     </React.Fragment>
   );
 }

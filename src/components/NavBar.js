@@ -66,16 +66,6 @@ function NavBar({ cartState, authState, logoutUser }) {
         <NavLink
           to="/shop"
           activeClassName="active_class"
-          isActive={(match, location) => {
-            let pathStrings = location.pathname.split("/");
-            if (match) {
-              return true;
-            } else if (pathStrings[1] === "comment") {
-              return true;
-            } else {
-              return false;
-            }
-          }}
           className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
         >
           {" "}
@@ -84,6 +74,18 @@ function NavBar({ cartState, authState, logoutUser }) {
         <NavLink
           to="/blog"
           activeClassName="active_class"
+          isActive={(match, location) => {
+            let pathStrings = location.pathname.split("/");
+            if (match) {
+              return true;
+            } else if (pathStrings[1] === "comment") {
+              return true;
+            } else if (pathStrings[1] === "addblog") {
+              return true;
+            } else {
+              return false;
+            }
+          }}
           className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
         >
           {" "}
@@ -194,7 +196,7 @@ function NavBar({ cartState, authState, logoutUser }) {
   );
 
   return (
-    <header className="sm:flex sm:justify-between bg-agribackgroung border-agrisolidgreen border-b-2 sticky top-0">
+    <header className="sm:flex sm:justify-between bg-agribackgroung border-agrisolidgreen border-b-2 sticky top-0 z-50">
       {isAuthenticated === null
         ? null
         : isAuthenticated

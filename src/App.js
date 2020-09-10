@@ -22,6 +22,7 @@ import Register from "./features/auth/Register";
 import BlogComment from "./features/blog/BlogComment";
 import { loadUser } from "./redux/actions/auth/authActions";
 import Footer from "./components/Footer";
+import AddBlog from "./features/blog/AddBlog";
 
 function App({ loadUser }) {
   const [show, setShow] = React.useState(false);
@@ -35,7 +36,7 @@ function App({ loadUser }) {
         <div className="flex flex-col bg-agribackgroung">
           {/* <ToastContainer autoClose={4000} /> */}
           <NavBar />
-          <div className="px-4">
+          <div className="px-4 min-h-screen">
             <Switch>
               <Route exact path="/home" component={Home} />
               <Route exact path="/login" component={Login} />
@@ -44,11 +45,16 @@ function App({ loadUser }) {
               <Route path="/hire" component={Hire} />
               <Route path="/consultation" component={Consultation} />
               <Route path="/blog" component={Blog} />
+              <Route path="/addblog" component={AddBlog} />
               <Route path="/cart" component={CartList} />
               <Route path="/comment/:id" component={BlogComment} />
             </Switch>
           </div>
-          <div>
+          <div
+            style={{
+              marginTop: "auto",
+            }}
+          >
             <Footer />
           </div>
         </div>

@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import BlogItem from "./BlogItems";
 import { getBlogs } from "../../redux/actions/blog/blogActions";
 import AddBlog from "./AddBlog";
+import { Link } from "react-router-dom";
 
 Modal.setAppElement("#root");
 function Blogs({ getBlogs, blogState }) {
@@ -14,35 +15,17 @@ function Blogs({ getBlogs, blogState }) {
   }, []);
 
   return (
-    <div>
-      blog
-      {/* <Modal
-        onRequestClose={() => setModalOpen(false)}
-        isOpen={modalOpen}
-        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.6)" } }}
+    <div className="flex flex-col mt-6">
+      <Link
+        to="/addblog"
+        className="font-bold flex-1 flex justify-center items-center w-1/12 rounded-full p-1 mb-2 text-agrisolidgreen bg-agribackgroung hover:text-agribackgroung hover:bg-agrisolidgreen border-agrisolidgreen border-2"
       >
-        <button onClick={() => setModalOpen(!modalOpen)}>close</button>
-        <AddBlog />
-      </Modal>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <div style={{ width: "20%", position: "fixed" }}>seaech</div>
-        <div
-          style={{
-            width: "80%",
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "column",
-            position: "absolute",
-            right: 0,
-          }}
-        >
-          <button onClick={() => setModalOpen(!modalOpen)}>Add Blog</button>
+        New Blog
+      </Link>
+
+      <div className="flex flex-row">
+        <div className="w-2/12">search</div>
+        <div className="w-9/12">
           {blogState.blogs.map((item, index) => {
             return (
               <BlogItem
@@ -55,7 +38,7 @@ function Blogs({ getBlogs, blogState }) {
             );
           })}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 
 import { addBlog } from "../../redux/actions/blog/blogActions";
+import { Link } from "react-router-dom";
 
 function AddBlog({ addBlog }) {
   let [title, setTitle] = React.useState("");
@@ -58,21 +59,26 @@ function AddBlog({ addBlog }) {
 
   return (
     <React.Fragment>
-      <div style={{ height: 520 }}>
-        <div style={{ marginTop: 10, marginBottom: 10 }}>
-          <label htmlFor="title" style={{ paddingLeft: 7 }}>
-            Title
-          </label>
+      <div className="z-0">
+        <div className="flex  flex-col w-7/12 mt-6">
+          <div>
+            <Link
+              to="/blog"
+              className="font-bold flex-1 flex justify-center items-center w-2/12 rounded-full p-1 mb-2 text-agrisolidgreen bg-agribackgroung hover:text-agribackgroung hover:bg-agrisolidgreen border-agrisolidgreen border-2"
+            >
+              <i class="fas fa-long-arrow-alt-left"></i> Blogs
+            </Link>
+          </div>
+          <label htmlFor="title">Title</label>
           <input
-            style={{ width: "95%", height: 30 }}
             type="text"
             name={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w3-input w3-border w3-margin-bottom"
+            className="w3-input w3-border w3-margin-bottom h-8 w-5/12 border-agrisolidgreen border-2 mb-2"
           />
         </div>
+        <label>Content</label>
         <ReactQuill
-          style={{ height: 430 }}
           modules={modules}
           formats={formats}
           theme="snow"

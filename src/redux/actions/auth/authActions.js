@@ -97,10 +97,6 @@ export const loginUser = (user) => (dispatch) => {
     });
 };
 
-export const logoutUser = () => (dispatch) => {
-  dispatch({ type: LOGOUT_SUCCESS });
-};
-
 export const checkTokenExpiry = () => async (dispatch, getState) => {
   const auth_token = getState().authReducer.token;
 
@@ -122,16 +118,20 @@ export const checkTokenExpiry = () => async (dispatch, getState) => {
       dispatch({ type: AUTH_ERROR });
       return false;
     }
-    const res = await axios.post(
-      "http://127.0.0.1:5000/auth/refreshtoken",
-      {},
-      refreshTokenConfig(getState)
-    );
-    await dispatch({
-      type: REFRESH_TOKEN_SUCCESS,
-      payload: res.data,
-    });
-    return true;
+    try {
+      const res = await axios.post(
+        "http://127.0.0.1:5000/auth/refreshtoken",
+        {},
+        refreshTokenConfig(getState)
+      );
+      await dispatch({
+        type: REFRESH_TOKEN_SUCCESS,
+        payload: res.data,
+      });
+      return true;
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
   }
 };
 
@@ -144,10 +144,67 @@ export const tokenConfig = (getState) => {
   return config;
 };
 
+export const tokenImageConfig = (getState) => {
+  const token = getState().authReducer.token;
+  if (token) {
+    config.headers["Authorization"] = "Bearer " + token;
+    config.headers["content-type"] = "multipart/form-data";
+  }
+  return config;
+};
+
 export const refreshTokenConfig = (getState) => {
   const token_refresh = getState().authReducer.refreshToken;
   if (token_refresh) {
     config.headers["Authorization"] = "Bearer " + token_refresh;
   }
   return config;
+};
+
+export const logoutUser = () => (dispatch, getState) => {
+  const token = getState().authReducer.token;
+  const token_refresh = getState().authReducer.refreshToken;
+
+  if (token) {
+    axios
+      .post(
+        "http://127.0.0.1:5000/auth/logout/access",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.error) {
+          console.error(res.data.error);
+        } else {
+          localStorage.removeItem("token");
+        }
+      });
+  }
+  if (token_refresh) {
+    axios
+      .post(
+        "http://127.0.0.1:5000/auth/logout/refresh",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token_refresh}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.error) {
+          console.error(res.data.error);
+        } else {
+          localStorage.removeItem("refreshToken");
+        }
+      });
+  }
+  localStorage.clear();
+  dispatch({ type: LOGOUT_SUCCESS });
+  toast.success(`successfuly logged out`);
+  setTimeout(() => (window.location = "/"), 500);
 };

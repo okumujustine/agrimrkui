@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 import { addToCart } from "../redux/actions/cart/CartActions";
 import "./Product.css";
@@ -14,11 +16,13 @@ function ProductCart({ product, addToCart, cartItemsState }) {
       className="flex flex-col rounded overflow-hidden hover:shadow-lg mb-10 w-full bg-white"
     >
       <div className="bg-white">
-        <img
-          className="object-contain h-32 w-full"
-          src={`${imageUrl}${product.image_one}`}
-          alt="Sunset in the mountains"
-        />
+        <Zoom>
+          <img
+            className="object-contain h-32 w-full"
+            src={`${imageUrl}${product.image_one}`}
+            alt="Agro pay image here"
+          />
+        </Zoom>
       </div>
       <div className="px-6 py-2">
         <div className="font-bold text-md truncate">{product.title}</div>

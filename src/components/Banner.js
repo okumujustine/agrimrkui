@@ -1,9 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import Button from "../components/Button";
-import { deepGreen, white } from "../components/Colors";
-import "./Banner.css";
-import agpng from "../static/agpng.png";
+import "./BannerCustom.css";
 
 export default function Banner() {
   return (
@@ -21,12 +19,15 @@ export default function Banner() {
             your agricultural value.
           </p>
           <div className="pt-5 flex">
-            <button className="text-white font-bold py-2 px-4 rounded-full bg-agrisolidgreen">
+            <button className="text-white font-bold py-2 px-4 rounded-full bg-agrisolidgreen hover:bg-agribackgroung hover:text-agrisolidgreen hover:border-agrisolidgreen border-2">
               REGISTER NOW
             </button>
-            <button className="ml-2 sm:ml-10 text-agrisolidgreen font-bold py-2 px-4 rounded-full border-agrisolidgreen border-solid border-2">
+            <Link
+              to="/shop"
+              className=" focus:outline-none ml-2 sm:ml-10 text-agrisolidgreen font-bold py-2 px-4 rounded-full border-agrisolidgreen border-solid border-2 hover:bg-agrisolidgreen hover:text-agribackgroung"
+            >
               START SHOPPING
-            </button>
+            </Link>
           </div>
         </div>
         <div className="hidden sm:hidden md:block lg:block xl:block w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 banner_backgroundImage h-400 xl:h-400"></div>

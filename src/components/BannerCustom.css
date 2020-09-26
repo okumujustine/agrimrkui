@@ -1,0 +1,5 @@
+.banner_backgroundImage {
+  background-image: url("../static/agpng.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}

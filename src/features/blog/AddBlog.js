@@ -9,21 +9,27 @@ import { addBlog } from "../../redux/actions/blog/blogActions";
 import { Link } from "react-router-dom";
 
 function AddBlog({ addBlog }) {
-  let [title, setTitle] = React.useState("");
+  const [title, setTitle] = React.useState("");
   const [value, setValue] = React.useState("");
+  const [banner, setBanner] = React.useState("");
 
   const handleEditorChange = () => {
     if (!title || !value) {
-      console.log("no way");
       toast.error("Provide title and content!!");
       return;
     }
 
-    const blogContent = {
-      title,
-      content: value,
-    };
-    addBlog(blogContent);
+    let formData = new FormData();
+    try {
+      formData.append("banner", banner, banner.name);
+      formData.append("title", title);
+      formData.append("content", value);
+    } catch (e) {
+      toast.error("select a banner please!!");
+      return;
+    }
+
+    addBlog(formData);
   };
 
   const modules = {
@@ -60,13 +66,13 @@ function AddBlog({ addBlog }) {
   return (
     <React.Fragment>
       <div className="z-0">
-        <div className="flex  flex-col w-7/12 mt-6">
+        <div className="flex  flex-col w-7/12 mt-2">
           <div>
             <Link
               to="/blog"
               className="font-bold flex-1 flex justify-center items-center w-2/12 rounded-full p-1 mb-2 text-agrisolidgreen bg-agribackgroung hover:text-agribackgroung hover:bg-agrisolidgreen border-agrisolidgreen border-2"
             >
-              <i class="fas fa-long-arrow-alt-left"></i> Blogs
+              <i className="fas fa-long-arrow-alt-left"></i> Blogs
             </Link>
           </div>
           <label htmlFor="title">Title</label>
@@ -76,6 +82,11 @@ function AddBlog({ addBlog }) {
             onChange={(e) => setTitle(e.target.value)}
             className="w3-input w3-border w3-margin-bottom h-8 w-5/12 border-agrisolidgreen border-2 mb-2"
           />
+          <label>Banner</label>
+          <input type="file" onChange={(e) => setBanner(e.target.files[0])} />
+        </div>
+        <div>
+          <label>Category</label>
         </div>
         <label>Content</label>
         <ReactQuill
@@ -92,7 +103,7 @@ function AddBlog({ addBlog }) {
         className="bg-agrisolidgreen text-agribackgroung p-2 rounded-full mt-2 font-bold"
         onClick={handleEditorChange}
       >
-        Post Blog <i class="fas fa-paper-plane"></i>
+        Post Blog <i className="fas fa-paper-plane"></i>
       </button>
     </React.Fragment>
   );

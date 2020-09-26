@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert"; // Import
 
 import { logoutUser } from "../redux/actions/auth/authActions";
 
@@ -10,6 +11,24 @@ function NavBar({ cartState, authState, logoutUser }) {
   let location = useLocation();
 
   const { isAuthenticated } = authState;
+
+  const handleLogOut = () => {
+    confirmAlert({
+      title: "confirm to logout",
+      message: "Are you sure you want to logout!?",
+      buttons: [
+        {
+          label: "Yes",
+          className: "bg-agrisolidgreen",
+          onClick: () => logoutUser(),
+        },
+        {
+          label: "No",
+          onClick: () => console.log("no"),
+        },
+      ],
+    });
+  };
 
   const authLinks = (
     <React.Fragment>
@@ -91,14 +110,15 @@ function NavBar({ cartState, authState, logoutUser }) {
         <NavLink
           to="/cart"
           activeClassName="active_class"
-          className="block sm:mt-0 sm:ml-2 px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung rounded-full"
+          className="border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-full mr-2 font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
         >
-          <span className="but">{cartState.cartItems.length}</span>
+          <i className="fas fa-shopping-cart"></i>
+          {cartState.cartItems.length}
         </NavLink>
         <NavLink
           to="/login"
           activeClassName="active_class"
-          className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
+          className="mr-1 border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-md font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
         >
           {" "}
           Login{" "}
@@ -106,7 +126,7 @@ function NavBar({ cartState, authState, logoutUser }) {
         <NavLink
           to="/register"
           activeClassName="active_class"
-          className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
+          className="border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-md font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
         >
           {" "}
           Register{" "}
@@ -195,17 +215,23 @@ function NavBar({ cartState, authState, logoutUser }) {
         <NavLink
           to="/cart"
           activeClassName="active_class"
-          className="block sm:mt-0 sm:ml-2 px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung rounded-full"
+          className="border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-full mr-2 font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
         >
-          <span className="but">{cartState.cartItems.length}</span>
+          <i className="fas fa-shopping-cart"></i>
+          {cartState.cartItems.length}
         </NavLink>
-        {/* <button onClick={() => logoutUser()}>logout</button> */}
+        <button
+          className="border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-md font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
+          onClick={handleLogOut}
+        >
+          logout
+        </button>
       </div>
     </React.Fragment>
   );
 
   return (
-    <header className="sm:flex sm:justify-between bg-white border-agrisolidgreen border-b-2 sticky top-0 z-50">
+    <header className="sm:flex sm:justify-between bg-white border-agrisolidgreen border-b-2 sticky top-0 z-50 mb-4">
       {isAuthenticated === null
         ? null
         : isAuthenticated

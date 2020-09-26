@@ -32,9 +32,15 @@ export default (state = initialState, action) => {
         isLoading: false,
         user: action.payload,
       };
+    case LOGOUT_SUCCESS:
+      return {
+        token: null,
+        isAuthenticated: false,
+        isLoading: false,
+        user: null,
+      };
     case AUTH_ERROR:
     case LOGIN_FAILED:
-    case LOGOUT_SUCCESS:
     case REGISTER_FAILED:
       localStorage.removeItem("token");
       localStorage.removeItem("refreshToken");
@@ -46,6 +52,7 @@ export default (state = initialState, action) => {
       };
     case REFRESH_TOKEN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("refreshToken", action.payload.refreshToken);
       return {
         ...state,
         ...action.payload,

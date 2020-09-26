@@ -1,7 +1,8 @@
-import { GET_PRODUCTS } from "../../actions/types";
+import { GET_PRODUCTS, GET_HIRE_PRODUCTS } from "../../actions/types";
 
 const initialState = {
   products: [],
+  hireProducts: [],
 };
 
 export default function (state = initialState, action) {
@@ -10,6 +11,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         products: [...action.payload],
+      };
+    case GET_HIRE_PRODUCTS:
+      return {
+        ...state,
+        hireProducts: [...action.payload],
       };
     default:
       return state;

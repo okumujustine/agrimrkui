@@ -9,8 +9,9 @@ import {
   decrementItemQuantity,
 } from "../../redux/actions/cart/CartActions";
 import { addOrders } from "../../redux/actions/orders/ordersAction";
-import c from "../../static/products/876661122392077_1.jpg";
 import { toast } from "react-toastify";
+import { imageUrl } from "../../sdk/serverConsts";
+import EmptyCartSvg from "./EmptyCartSvg";
 
 function CartList({
   cartState,
@@ -87,7 +88,12 @@ function CartList({
   return (
     <div>
       {cartState.cartItems.length === 0 ? (
-        <h6>You have no item in cart</h6>
+        <div className="flex flex-col justify-center items-center">
+          <p className="z-10 font-bold text-agrisolidgreen">
+            Your cart is empty
+          </p>
+          <EmptyCartSvg />
+        </div>
       ) : (
         <div className="flex justify-between">
           <div className="flex flex-col w-8/12">
@@ -99,15 +105,15 @@ function CartList({
               >
                 <div className="w-8/12">
                   <div className="flex">
-                    <img className="h-2/12 w-2/12" src={c} alt="products" />
+                    <img
+                      className="object-contain h-2/12 w-3/12"
+                      src={`${imageUrl}${product.image_one}`}
+                      alt="cart image"
+                    />
                     <div style={{ padding: "10px" }}>
                       <h4 style={{ paddingBottom: "8px" }}>{product.title}</h4>
                       <small style={{ lineHeight: "15px" }}>
-                        is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard
-                        dummy text ever since the 1500s, when an unknown printer
-                        took a galley of type and scrambled it to make a type
-                        specimen book. It has survived not only five centuries
+                        {product.description}
                       </small>
                       <h4 className="pt-2">{product.price}</h4>
                     </div>

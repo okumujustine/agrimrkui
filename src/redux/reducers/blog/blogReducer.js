@@ -1,5 +1,6 @@
 import {
   GET_BLOGS,
+  GET_BLOGS_MORE,
   GET_BLOGS_LOADING,
   BLOGS_LAST_REACHED,
 } from "../../actions/types";
@@ -16,6 +17,13 @@ export default (state = initialState, action) => {
     case GET_BLOGS:
       return {
         ...state,
+        blogs: [...action.payload.data],
+        loading: false,
+        page: action.payload.page,
+      };
+    case GET_BLOGS_MORE:
+      return {
+        ...state,
         blogs: [...state.blogs, ...action.payload.data],
         loading: false,
         page: action.payload.page,
@@ -23,7 +31,7 @@ export default (state = initialState, action) => {
     case GET_BLOGS_LOADING:
       return {
         ...state,
-        loading: true,
+        loading: action.payload,
       };
     case BLOGS_LAST_REACHED:
       return {

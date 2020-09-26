@@ -4,6 +4,7 @@ import {
   Route,
   Switch,
   NavLink,
+  Redirect,
 } from "react-router-dom";
 import { connect } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -38,6 +39,9 @@ function App({ loadUser }) {
           <NavBar />
           <div className="px-4 min-h-screen">
             <Switch>
+              <Route exact path="/">
+                <Redirect to="/home" />
+              </Route>
               <Route exact path="/home" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />

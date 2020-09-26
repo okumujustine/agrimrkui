@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 import "./index.css";
 import "./assets/main.css";

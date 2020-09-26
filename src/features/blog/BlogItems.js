@@ -1,34 +1,89 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import moment from "moment";
 
 import { delBlog } from "../../redux/actions/blog/blogActions";
 import { Link } from "react-router-dom";
+import { imageUrl } from "../../sdk/serverConsts";
 
-function BlogItems({ title, content, blog_id, user, delBlog }) {
+function BlogItems({ title, blog }) {
   const deleteBlog = (blogId) => {
     delBlog(blogId);
   };
   return (
-    <div className="w-full flex flex-col justify-center bg-white mb-2 p-4 m-12 mt-0">
-      <h5>Author: {user.name}</h5>
-      <hr />
-      <br />
-      <h2>{title}</h2>
-      <div dangerouslySetInnerHTML={{ __html: content }}></div>
-      <footer className="flex justify-around">
-        <button>Like</button>
-        <button>repost</button>
-        <button onClick={() => deleteBlog(blog_id)}>delete</button>
+    <div className="flex flex-row bg-white mb-2 m-12 mt-0 p-2">
+      <Link
+        to={{
+          pathname: `/comment/${blog.id}`,
+          state: {
+            title: blog.title,
+            content: blog.content,
+            date: blog.date_created,
+          },
+        }}
+      >
+        <div
+          className="bg-cover h-32 w-32"
+          style={{ backgroundImage: `url(${imageUrl}${blog.banner})` }}
+        >
+          <div className=" bg-agrisolidgreen bg-opacity-50 pl-3 pr-3">
+            <small className="text-white">verified</small>
+          </div>
+        </div>
+      </Link>
+      <div className="flex flex-col pl-3 justify-center flex-1">
         <Link
           to={{
-            pathname: `/comment/${blog_id}`,
+            pathname: `/comment/${blog.id}`,
             state: {
-              title,
-              content,
+              title: blog.title,
+              content: blog.content,
+              date: blog.date_created,
             },
           }}
-        ></Link>
-      </footer>
+        >
+          <h1 className="font-bold text-xl text-agrisolidgreen capitalize truncate">
+            {blog.title}
+          </h1>
+        </Link>
+        <div className="text-beautifulgray">
+          <small>
+            <i className="fas fa-user-circle"></i> {blog.user.name}
+          </small>
+        </div>
+        <div className="text-beautifulgray">
+          <small>
+            <i className="fas fa-clock"></i>{" "}
+            {`${moment(blog.date_created).fromNow(true)} ago`}
+          </small>
+        </div>
+        <div className="flex flex-row justify-between pr-20 pt-3">
+          <Link
+            to={{
+              pathname: `/comment/${blog.id}`,
+              state: {
+                tite: blog.title,
+                content: blog.content,
+                date: blog.date_created,
+              },
+            }}
+          >
+            <i className="fas fa-comment"></i> {blog.comment_count} comments
+          </Link>
+          <Link
+            to={{
+              pathname: `/comment/${blog.id}`,
+              state: {
+                title: blog.title,
+                content: blog.content,
+                date: blog.date_created,
+              },
+            }}
+          >
+            <i className="fas fa-eye"></i> {blog.seen_count} views
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

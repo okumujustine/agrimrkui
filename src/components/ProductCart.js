@@ -9,7 +9,6 @@ import "./Product.css";
 import { imageUrl } from "../sdk/serverConsts";
 
 function ProductCart({ product, addToCart, cartItemsState }) {
-  console.log(imageUrl);
   return (
     <Link
       to="/shop"

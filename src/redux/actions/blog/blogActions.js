@@ -22,8 +22,6 @@ export const getBlogs = (page, more) => (dispatch, getState) => {
 };
 
 export const getMoreBlogs = (page, more) => (dispatch, getState) => {
-  console.log("page" + page);
-
   if (more) {
     page = getState().blogReducer.page + 1;
   }
@@ -35,7 +33,6 @@ export const getMoreBlogs = (page, more) => (dispatch, getState) => {
   dispatch({ type: GET_BLOGS_LOADING, payload: true });
   axios.get(`http://127.0.0.1:5000/blog?page=${page}`).then((res) => {
     if (res.data.length == 0) {
-      console.log("last reached");
       dispatch({
         type: BLOGS_LAST_REACHED,
       });
@@ -77,8 +74,6 @@ export const addBlog = (blog) => (dispatch, getState) => {
 };
 
 export const delBlog = (blog_id) => (dispatch) => {
-  console.log(blog_id);
-
   axios
     .post("http://127.0.0.1:5000/blog/delete?blog_id=" + blog_id, config)
     .then((res) => {

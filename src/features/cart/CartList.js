@@ -54,7 +54,6 @@ function CartList({
             toast.error("Ouch! Please try again!");
           }
         }
-        console.log(d);
       },
     });
     // window.getpaidSetup({

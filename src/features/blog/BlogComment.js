@@ -37,7 +37,6 @@ function BlogComment({
   }
 
   const addComment = () => {
-    console.log(comment);
     addBlogComment({ id, comment });
   };
 

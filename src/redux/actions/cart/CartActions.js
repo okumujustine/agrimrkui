@@ -36,7 +36,6 @@ export const removeFromCart = (items, product) => (dispatch) => {
 
 export const incrementItemQuantity = (items, product) => (dispatch) => {
   const cartItems = items.slice();
-  console.log("incremented item qty");
 
   cartItems.forEach((item) => {
     if (item.id === product.id) {

@@ -16,7 +16,6 @@ export const addOrders = () => (dispatch, getState) => {
   axios
     .post("http://127.0.0.1:5000/orders/add", body, tokenConfig(getState))
     .then((res) => {
-      console.log(res);
       dispatch({
         type: ORDERS_SUCCESS,
       });

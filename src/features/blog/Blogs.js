@@ -13,7 +13,6 @@ function Blogs({ getBlogs, blogState, getMoreBlogs }) {
   }, []);
 
   const fetchBlogs = () => {
-    console.log("more load func");
     getMoreBlogs(blogState.page + 1, true);
   };
 

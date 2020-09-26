@@ -16,7 +16,6 @@ export const getBlogComments = (id) => (dispatch) => {
 
 export const addBlogComment = (commentData) => (dispatch, getState) => {
   const { id, comment } = commentData;
-  console.log(id);
   dispatch({ type: ADD_COMMENTS_LOADING, payload: true });
   axios
     .post(

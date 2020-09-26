@@ -78,7 +78,6 @@ export const registerUser = (user) => (dispatch) => {
 export const loginUser = (user) => (dispatch) => {
   // Request Body
   const body = { phone: user.contact, password: user.password };
-  console.log(body);
 
   axios
     .post("http://127.0.0.1:5000/auth/login", body, config)

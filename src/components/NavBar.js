@@ -24,7 +24,6 @@ function NavBar({ cartState, authState, logoutUser }) {
         },
         {
           label: "No",
-          onClick: () => console.log("no"),
         },
       ],
     });

@@ -4,6 +4,9 @@ module.exports = {
   prefix: "",
   important: false,
   separator: ":",
+  future: {
+    removeDeprecatedGapUtilities: true,
+  },
   theme: {
     screens: {
       sm: "640px",

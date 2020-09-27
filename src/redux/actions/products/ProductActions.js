@@ -8,13 +8,10 @@ export const getProducts = (pageNumber, filterObject) => (dispatch) => {
       filterObject: filterObject,
     })
     .then((res) => {
-      console.log(res.data.products);
-      if (res.data.products.length > 0) {
-        dispatch({
-          type: GET_PRODUCTS,
-          payload: res.data,
-        });
-      }
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: res.data,
+      });
     });
 };
 
@@ -22,11 +19,9 @@ export const getHireProducts = (pageNumber) => (dispatch) => {
   axios
     .get("http://127.0.0.1:5000/product/hire/get?page=" + pageNumber)
     .then((res) => {
-      if (res.data.products.length > 0) {
-        dispatch({
-          type: GET_HIRE_PRODUCTS,
-          payload: res.data,
-        });
-      }
+      dispatch({
+        type: GET_HIRE_PRODUCTS,
+        payload: res.data,
+      });
     });
 };

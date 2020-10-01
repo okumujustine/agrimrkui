@@ -4,10 +4,22 @@ import Modal from "react-modal";
 import Zoom from "react-medium-image-zoom";
 import { connect } from "react-redux";
 import PhoneInput from "react-phone-number-input/input";
-
-import "react-medium-image-zoom/dist/styles.css";
+import DateTimePicker from "react-datetime-picker";
 
 import { imageUrl } from "../sdk/serverConsts";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    width: "70%",
+    transform: "translate(-50%, -50%)",
+  },
+  overlay: { zIndex: 1000 },
+};
 
 function HireCards({ product, authState }) {
   const { isAuthenticated } = authState;
@@ -15,30 +27,32 @@ function HireCards({ product, authState }) {
   const [value, setValue] = React.useState();
   const [modalOpen, setModalOpen] = React.useState(false);
   const [hireNote, setHireNote] = React.useState("");
+  const [neededDate, setNeededDate] = React.useState(new Date());
+  const [returnDate, setReturnDate] = React.useState(new Date());
+  const [days, setDays] = React.useState(0);
+  const [address, setAddress] = React.useState("");
 
   const hireRequest = () => {
-    console.log(value, hireNote);
+    console.log({
+      phone: value,
+      hireNote,
+      neededDate,
+      returnDate,
+      days,
+      address,
+    });
   };
 
   return (
     <React.Fragment>
-      <Modal isOpen={modalOpen} ariaHideApp={false}>
-        <div className="flex justify-between">
+      <Modal isOpen={modalOpen} ariaHideApp={false} style={customStyles}>
+        <div className="flex">
           <div className="w-10/12">
             <div className="flex flex-col">
-              <div className="flex flex-col py-3">
-                <h1 className="font-bold underline text-agrisolidgreen capitalize">
-                  {product.title}
-                </h1>
-                <small className="font-bold">Ugx {product.price}</small>
-                <small className="text-agrisolidgreen">
-                  {product.description}
-                </small>
-              </div>
               <div className="flex flex-col">
                 <label>Phone Number</label>
                 <PhoneInput
-                  className="focus:outline-none border-agrisolidgreen border-2 w-6/12"
+                  className="focus:outline-none border-agrisolidgreen border-2 w-10/12"
                   placeholder="Enter phone number"
                   country="UG"
                   value={value}
@@ -46,11 +60,48 @@ function HireCards({ product, authState }) {
                 />
               </div>
               <div className="flex flex-col">
+                <label>Needed Date</label>
+                <DateTimePicker
+                  className="focus:outline-none border-agrisolidgreen border-2 w-10/12"
+                  disableClock={true}
+                  value={neededDate}
+                  onChange={setNeededDate}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Return date</label>
+                <DateTimePicker
+                  className="focus:outline-none border-agrisolidgreen border-2 w-10/12"
+                  disableClock={true}
+                  value={returnDate}
+                  onChange={setReturnDate}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Number of days</label>
+                <input
+                  className="focus:outline-none border-agrisolidgreen border-2 w-10/12"
+                  type="number"
+                  placeholder="number of days"
+                  value={days}
+                  onChange={(e) => setDays(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Home address</label>
+                <input
+                  className="focus:outline-none border-agrisolidgreen border-2 w-10/12"
+                  placeholder="home address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col">
                 <label>Hire Notes</label>
                 <textarea
                   value={hireNote}
                   onChange={(e) => setHireNote(e.target.value)}
-                  className="focus:outline-none border-agrisolidgreen border-2 w-6/12 resize-none"
+                  className="focus:outline-none border-agrisolidgreen border-2 w-10/12 resize-none"
                   placeholder="enter notes here"
                 />
               </div>
@@ -66,13 +117,24 @@ function HireCards({ product, authState }) {
               <button onClick={hireRequest}>submit request</button>
             </div>
           </div>
-          <div className="w-1/12 float-right">
-            <button
-              className="font-bold w-full flex justify-center items-center rounded-full p-1 mb-2 text-agrisolidgreen bg-agribackgroung hover:text-agribackgroung hover:bg-agrisolidgreen border-agrisolidgreen border-2 float-right focus:outline-none"
-              onClick={() => setModalOpen(!modalOpen)}
-            >
-              close
-            </button>
+          <div>
+            <div className="w-5/12 float-right">
+              <button
+                className="font-bold w-full flex justify-center items-center rounded-full p-1 mb-2 text-agrisolidgreen bg-agribackgroung hover:text-agribackgroung hover:bg-agrisolidgreen border-agrisolidgreen border-2 float-right focus:outline-none"
+                onClick={() => setModalOpen(!modalOpen)}
+              >
+                close
+              </button>
+            </div>
+            <div className="flex flex-col py-3 ">
+              <h1 className="font-bold underline text-agrisolidgreen capitalize">
+                {product.title}
+              </h1>
+              <small className="font-bold">Ugx {product.price}</small>
+              <small className="text-agrisolidgreen">
+                {product.description}
+              </small>
+            </div>
           </div>
         </div>
       </Modal>

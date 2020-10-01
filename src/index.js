@@ -4,13 +4,15 @@ import { Provider } from "react-redux";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import "react-phone-number-input/style.css";
+import "react-medium-image-zoom/dist/styles.css";
 
 import "./index.css";
 import "./assets/main.css";
-import "react-phone-number-input/style.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import store from "./redux/store";
+import Modal from "react-modal";
 
 const alertOptions = {
   position: positions.TOP_RIGHT,
@@ -18,6 +20,8 @@ const alertOptions = {
   offset: "30px",
   transition: transitions.SCALE,
 };
+
+Modal.setAppElement("#root");
 
 ReactDOM.render(
   <React.StrictMode>
@@ -30,7 +34,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

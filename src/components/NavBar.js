@@ -230,7 +230,7 @@ function NavBar({ cartState, authState, logoutUser }) {
   );
 
   return (
-    <header className="sm:flex sm:justify-between bg-white border-agrisolidgreen border-b-2 sticky top-0 z-50 mb-4">
+    <header className="sm:flex sm:justify-between bg-white border-agrisolidgreen border-b-2 sticky top-0 z-20 mb-4">
       {isAuthenticated === null
         ? null
         : isAuthenticated

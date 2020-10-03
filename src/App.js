@@ -17,7 +17,7 @@ import CartList from "./features/cart/CartList";
 import ShopProducts from "./features/shop/ShopProducts";
 import Hire from "./features/products/Hire";
 import Blog from "./features/blog/Blogs";
-import Consultation from "./features/consultation";
+import Consultation from "./features/consultation/consultation";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 import BlogComment from "./features/blog/BlogComment";

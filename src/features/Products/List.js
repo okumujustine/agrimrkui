@@ -33,9 +33,7 @@ function List({ getProducts, productsState }) {
   }, []);
 
   const getProductsData = (pageNumber = 1, filterObject = {}) => {
-    if (searchBackUp) {
-      filterObject["title"] = searchBackUp;
-    }
+    filterObject["title"] = searchValue;
     getProducts(pageNumber, filterObject);
   };
 
@@ -47,7 +45,6 @@ function List({ getProducts, productsState }) {
     }
     setSearchBackUp(searchValue);
     await getProductsData(1, { title: searchValue });
-    setSearchValue("");
   };
 
   const clearSearchInputClicked = () => {

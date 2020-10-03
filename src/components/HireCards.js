@@ -5,6 +5,7 @@ import Zoom from "react-medium-image-zoom";
 import { connect } from "react-redux";
 import PhoneInput from "react-phone-number-input/input";
 import DateTimePicker from "react-datetime-picker";
+import { toast } from "react-toastify";
 
 import { imageUrl } from "../sdk/serverConsts";
 
@@ -29,10 +30,23 @@ function HireCards({ product, authState }) {
   const [hireNote, setHireNote] = React.useState("");
   const [neededDate, setNeededDate] = React.useState(new Date());
   const [returnDate, setReturnDate] = React.useState(new Date());
-  const [days, setDays] = React.useState(0);
+  const [days, setDays] = React.useState("");
   const [address, setAddress] = React.useState("");
 
   const hireRequest = () => {
+    if (!value) {
+      toast.error("Enter phone number please");
+      return;
+    }
+    if (days === 0) {
+      toast.error("Enter number of days please");
+      return;
+    }
+    if (!address) {
+      toast.error("Enter location address please");
+      return;
+    }
+
     console.log({
       phone: value,
       hireNote,
@@ -114,7 +128,12 @@ function HireCards({ product, authState }) {
                   </i>
                 </b>
               </small>
-              <button onClick={hireRequest}>submit request</button>
+              <button
+                className="bg-agrisolidgreen p-1 text-agribackgroung font-bold w-10/12 mt-3"
+                onClick={hireRequest}
+              >
+                submit request
+              </button>
             </div>
           </div>
           <div>

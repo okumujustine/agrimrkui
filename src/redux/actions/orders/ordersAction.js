@@ -82,7 +82,6 @@ export const fetchHireList = (pageNumber, filterObject) => (
       tokenConfig(getState)
     )
     .then((hireListResponse) => {
-      console.log(hireListResponse.data);
       dispatch({
         type: HIRE_LIST_LOADED,
         payload: hireListResponse.data,

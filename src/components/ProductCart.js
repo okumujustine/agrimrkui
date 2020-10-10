@@ -19,7 +19,7 @@ function ProductCart({ product, addToCart, cartItemsState }) {
           <img
             className="object-contain h-32 w-full"
             src={`${imageUrl}${product.image_one}`}
-            alt="Agro pay image here"
+            alt="Agro pay here"
           />
         </Zoom>
       </div>

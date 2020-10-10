@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
 
 import { logoutUser } from "../redux/actions/auth/authActions";
 
 function NavBar({ cartState, authState, logoutUser }) {
   const [clicked, setClicked] = useState(false);
-
-  let location = useLocation();
 
   const { isAuthenticated } = authState;
 

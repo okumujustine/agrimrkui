@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import Rave from "react-flutterwave-rave";
 
 import {
   removeFromCart,
@@ -9,7 +8,6 @@ import {
   decrementItemQuantity,
 } from "../../redux/actions/cart/CartActions";
 import { addOrders } from "../../redux/actions/orders/ordersAction";
-import { toast } from "react-toastify";
 import { imageUrl } from "../../sdk/serverConsts";
 import EmptyCartSvg from "./EmptyCartSvg";
 
@@ -18,70 +16,9 @@ function CartList({
   removeFromCart,
   incrementItemQuantity,
   decrementItemQuantity,
-  addOrders,
-  authState,
 }) {
-  const API_publicKey_p = "FLWPUBK-006797527a53e4f60c1771a8b3d78da8-X";
-  const API_publicKey = "FLWPUBK_TEST-1c33f1ea951399fbd663cb875dadd1be-X";
-
   const handlePay = () => {
-    window.getpaidSetup({
-      PBFPubKey: API_publicKey,
-      customer_email: "okumujustine@gmail.com",
-      amount: 500,
-      customer_phone: "256781459239",
-      currency: "UGX",
-      payment_option: "mobilemoneyuganda",
-      fullname: "Okumu Justine",
-      // redirect_url: "https://rave-webhook.herokuapp.com/receivepayment",
-      txref: "new-sale" + new Date(),
-      meta: [
-        {
-          metaname: "flightID",
-          metavalue: "AP1234",
-        },
-      ],
-
-      callback: function (d) {
-        if (d.tx) {
-          var flw_ref = d.tx.flwRef;
-          if (
-            d.tx.chargeResponseCode === "00" ||
-            d.tx.chargeResponseCode === "0"
-          ) {
-            toast.success("Wow! That was fast and easy!");
-          } else {
-            toast.error("Ouch! Please try again!");
-          }
-        }
-      },
-    });
-    // window.getpaidSetup({
-    //   amount: cartState.cartItems.reduce((a, c) => a + c.price * c.count, 0),
-    //   txref: "rave-checkout-1508751596",
-    //   redirect_url: "http://localhost:3000/cart",
-    //   PBFPubKey: publicKey,
-    //   custom_title: "Agro Pay",
-    //   payment_method: "both",
-    //   customer_email: authState.user.email,
-    //   customer_phone: authState.user.phone,
-    //   currency: "UGX",
-    //   onclose: function () {
-    //     // toast.error("Ouch! Please try again!");
-    //   },
-    //   callback: function (res) {
-    //     //  var flw_ref = d.tx.flwRef;
-    //     console.log(res);
-    //     if (res.success === false) {
-    //       toast.error("Ouch! Please try again!");
-    //     }
-    //     if (res.respcode) {
-    //       if (res.respcode === "00") {
-    //         toast.error("Wow! That was fast and easy!");
-    //       }
-    //     }
-    //   },
-    // });
+    console.log("handle payment here");
   };
 
   return (
@@ -107,7 +44,7 @@ function CartList({
                     <img
                       className="object-contain h-2/12 w-3/12"
                       src={`${imageUrl}${product.image_one}`}
-                      alt="cart image"
+                      alt="cart"
                     />
                     <div style={{ padding: "10px" }}>
                       <h4 style={{ paddingBottom: "8px" }}>{product.title}</h4>

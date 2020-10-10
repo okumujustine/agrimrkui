@@ -7,7 +7,6 @@ import { getBlogs, getMoreBlogs } from "../../redux/actions/blog/blogActions";
 import { Link } from "react-router-dom";
 
 function Blogs({ getBlogs, blogState, getMoreBlogs }) {
-  // window.location.reload();
   React.useEffect(() => {
     getBlogs(1, false);
   }, []);

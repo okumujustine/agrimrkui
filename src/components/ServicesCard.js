@@ -1,9 +1,5 @@
 import React from "react";
 
-import cart from "../static/cart.png";
-import consult from "../static/consult.png";
-import tools from "../static/tools.png";
-
 export default function ServicesCard({ title, icon }) {
   return (
     <div>

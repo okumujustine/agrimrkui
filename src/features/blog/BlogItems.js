@@ -2,14 +2,10 @@ import * as React from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 
-import { delBlog } from "../../redux/actions/blog/blogActions";
 import { Link } from "react-router-dom";
 import { imageUrl } from "../../sdk/serverConsts";
 
 function BlogItems({ title, blog }) {
-  const deleteBlog = (blogId) => {
-    delBlog(blogId);
-  };
   return (
     <div className="flex flex-row bg-white mb-2 m-12 mt-0 p-2">
       <Link
@@ -88,4 +84,4 @@ function BlogItems({ title, blog }) {
   );
 }
 
-export default connect(null, { delBlog })(BlogItems);
+export default connect(null, null)(BlogItems);

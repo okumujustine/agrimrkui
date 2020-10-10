@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config, tokenConfig, tokenImageConfig } from "../auth/authActions";
+import { config, tokenImageConfig } from "../auth/authActions";
 import { confirmAlert } from "react-confirm-alert"; // Import
 
 import {
@@ -32,7 +32,7 @@ export const getMoreBlogs = (page, more) => (dispatch, getState) => {
   }
   dispatch({ type: GET_BLOGS_LOADING, payload: true });
   axios.get(`http://127.0.0.1:5000/blog?page=${page}`).then((res) => {
-    if (res.data.length == 0) {
+    if (res.data.length === 0) {
       dispatch({
         type: BLOGS_LAST_REACHED,
       });

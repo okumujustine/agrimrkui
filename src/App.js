@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  NavLink,
   Redirect,
 } from "react-router-dom";
 import { connect } from "react-redux";
@@ -27,7 +26,6 @@ import AddBlog from "./features/blog/AddBlog";
 import HireList from "./features/products/HireList";
 
 function App({ loadUser }) {
-  const [show, setShow] = React.useState(false);
   React.useEffect(() => {
     loadUser();
   }, []);

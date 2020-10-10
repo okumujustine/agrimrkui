@@ -17,7 +17,6 @@ function List({ getProducts, productsState }) {
   } = productsState;
 
   const [searchValue, setSearchValue] = React.useState("");
-  const [searchBackUp, setSearchBackUp] = React.useState("");
   const [category, setCategory] = React.useState([]);
 
   React.useEffect(() => {
@@ -43,7 +42,6 @@ function List({ getProducts, productsState }) {
       await getProductsData(1);
       return;
     }
-    setSearchBackUp(searchValue);
     await getProductsData(1, { title: searchValue });
   };
 
@@ -53,7 +51,6 @@ function List({ getProducts, productsState }) {
 
   const categorySearch = async (categorySearchValue) => {
     const sV = categorySearchValue.target.value;
-    setSearchBackUp(sV);
     await getProductsData(1, { title: sV });
   };
 

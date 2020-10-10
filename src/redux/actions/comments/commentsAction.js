@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config, tokenConfig } from "../auth/authActions";
+import { tokenConfig } from "../auth/authActions";
 
 import { GET_COMMENTS, COMMENTS_LOADING, ADD_COMMENTS_LOADING } from "../types";
 import { toast } from "react-toastify";

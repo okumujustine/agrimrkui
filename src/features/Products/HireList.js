@@ -101,11 +101,11 @@ function HireList({ ordersState, fetchHireList }) {
                 </td>
                 <td className="border px-8 py-4 font-bold">
                   {"  "}
-                  {hireListItem.status == "pending" ? (
+                  {hireListItem.status === "pending" ? (
                     <span className="text-orange-500">
                       {hireListItem.status} <i className="fas fa-circle"></i>
                     </span>
-                  ) : hireListItem.status == "approved" ? (
+                  ) : hireListItem.status === "approved" ? (
                     <span className="text-green-600">
                       {hireListItem.status} <i className="fas fa-circle"></i>
                     </span>

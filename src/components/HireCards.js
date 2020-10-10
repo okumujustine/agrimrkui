@@ -176,7 +176,7 @@ function HireCards({ product, authState, productHireRequest }) {
             <img
               className="object-contain h-32 w-full focus:outline-none"
               src={`${imageUrl}${product.image_one}`}
-              alt="Agro pay image here"
+              alt="Agro pay here"
             />
           </Zoom>
         </div>

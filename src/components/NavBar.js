@@ -206,7 +206,7 @@ function NavBar({ cartState, authState, logoutUser }) {
               return false;
             }
           }}
-          className="block sm:mt-0 sm:ml-2 rounded px-2 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
+          className="block sm:mt-0 sm:ml-2 rounded px-2 mr-3 py-1 mt-1 text-agrisolidgreen font-semibold hover:bg-agrisolidgreen hover:text-agribackgroung"
         >
           {" "}
           Blog{" "}

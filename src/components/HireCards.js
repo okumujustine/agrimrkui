@@ -8,6 +8,7 @@ import DateTimePicker from "react-datetime-picker";
 import { toast } from "react-toastify";
 
 import { imageUrl } from "../sdk/serverConsts";
+import { productHireRequest } from "../redux/actions/orders/ordersAction";
 
 const customStyles = {
   content: {
@@ -22,7 +23,7 @@ const customStyles = {
   overlay: { zIndex: 1000 },
 };
 
-function HireCards({ product, authState }) {
+function HireCards({ product, authState, productHireRequest }) {
   const { isAuthenticated } = authState;
 
   const [value, setValue] = React.useState();
@@ -33,7 +34,12 @@ function HireCards({ product, authState }) {
   const [days, setDays] = React.useState("");
   const [address, setAddress] = React.useState("");
 
-  const hireRequest = () => {
+  const hireRequest = (productId, productName) => {
+    if (!isAuthenticated) {
+      toast.error("You must login to hire products");
+      return;
+    }
+
     if (!value) {
       toast.error("Enter phone number please");
       return;
@@ -47,14 +53,17 @@ function HireCards({ product, authState }) {
       return;
     }
 
-    console.log({
+    const productToHire = {
       phone: value,
       hireNote,
       neededDate,
       returnDate,
       days,
       address,
-    });
+      productId,
+      productName,
+    };
+    productHireRequest(productToHire);
   };
 
   return (
@@ -130,7 +139,7 @@ function HireCards({ product, authState }) {
               </small>
               <button
                 className="bg-agrisolidgreen p-1 text-agribackgroung font-bold w-10/12 mt-3"
-                onClick={hireRequest}
+                onClick={() => hireRequest(product.id, product.title)}
               >
                 submit request
               </button>
@@ -195,6 +204,7 @@ function HireCards({ product, authState }) {
 
 const mapStateToProps = (state) => ({
   authState: state.authReducer,
+  productState: state.productsReducer,
 });
 
-export default connect(mapStateToProps, null)(HireCards);
+export default connect(mapStateToProps, { productHireRequest })(HireCards);

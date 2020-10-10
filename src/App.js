@@ -24,6 +24,7 @@ import BlogComment from "./features/blog/BlogComment";
 import { loadUser } from "./redux/actions/auth/authActions";
 import Footer from "./components/Footer";
 import AddBlog from "./features/blog/AddBlog";
+import HireList from "./features/products/HireList";
 
 function App({ loadUser }) {
   const [show, setShow] = React.useState(false);
@@ -52,6 +53,7 @@ function App({ loadUser }) {
               <Route path="/addblog" component={AddBlog} />
               <Route path="/cart" component={CartList} />
               <Route path="/comment/:id" component={BlogComment} />
+              <Route path="/hirelist" component={HireList} />
             </Switch>
           </div>
           <div

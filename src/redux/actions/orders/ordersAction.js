@@ -76,9 +76,12 @@ export const fetchHireList = (pageNumber, filterObject) => (
   dispatch,
   getState
 ) => {
+  console.log("pageNumber", pageNumber);
+  console.log("filterObject", filterObject);
   axios
-    .get(
+    .post(
       "http://127.0.0.1:5000/orders/hirelist?page=" + pageNumber,
+      { filterObject: filterObject },
       tokenConfig(getState)
     )
     .then((hireListResponse) => {

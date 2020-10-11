@@ -143,8 +143,24 @@ export const tokenConfig = (getState) => {
   return config;
 };
 
+export const appTokenConfig = (token) => {
+  if (token) {
+    config.headers["Authorization"] = "Bearer " + token;
+  }
+  return config;
+};
+
 export const tokenImageConfig = (getState) => {
   const token = getState().authReducer.token;
+  if (token) {
+    config.headers["Authorization"] = "Bearer " + token;
+    config.headers["content-type"] = "multipart/form-data";
+  }
+  return config;
+};
+
+export const appTokenImageConfig = (token) => {
+  console.log(tokenConfig);
   if (token) {
     config.headers["Authorization"] = "Bearer " + token;
     config.headers["content-type"] = "multipart/form-data";

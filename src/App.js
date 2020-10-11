@@ -24,6 +24,7 @@ import { loadUser } from "./redux/actions/auth/authActions";
 import Footer from "./components/Footer";
 import AddBlog from "./features/blog/AddBlog";
 import HireList from "./features/products/HireList";
+import Admin from "./features/admin/Admin";
 
 function App({ loadUser }) {
   React.useEffect(() => {
@@ -52,6 +53,7 @@ function App({ loadUser }) {
               <Route path="/cart" component={CartList} />
               <Route path="/comment/:id" component={BlogComment} />
               <Route path="/hirelist" component={HireList} />
+              <Route path="/admin" component={Admin} />
             </Switch>
           </div>
           <div

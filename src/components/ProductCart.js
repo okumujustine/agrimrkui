@@ -7,6 +7,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import { addToCart } from "../redux/actions/cart/CartActions";
 import "./Product.css";
 import { imageUrl } from "../sdk/serverConsts";
+import { formatMoney } from "../helperfuncs/formatingfunctions";
 
 function ProductCart({ product, addToCart, cartItemsState }) {
   return (
@@ -30,12 +31,12 @@ function ProductCart({ product, addToCart, cartItemsState }) {
         </p>
       </div>
       <div className="px-6">
-        <h1 className="font-bold">Ugx {product.price}</h1>
+        <h1 className="font-bold">Ugx {formatMoney(product.price)}</h1>
       </div>
       <div className="px-6 pt-4 pb-2 justify-end">
         <button
           onClick={() => addToCart(cartItemsState, product)}
-          className="inline-block px-3 py-1 text-sm font-semibold mr-2 mb-2 w-full bg-agrisolidgreen text-agribackgroung"
+          className="inline-block px-3 py-1 text-sm font-semibold mr-2 mb-2 w-full bg-agrisolidgreen text-agribackgroung focus:outline-none"
         >
           ADD TO CART
         </button>

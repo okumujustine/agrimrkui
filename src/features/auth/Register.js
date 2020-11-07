@@ -24,7 +24,7 @@ function Register({ registerUser, authState }) {
     email,
     password,
     status: 1,
-    role: "agronomist",
+    role: "customer",
     confirm,
   };
 
@@ -35,7 +35,7 @@ function Register({ registerUser, authState }) {
   }
 
   const register = (d) => {
-    console.log(d);
+    registerUser(d);
   };
 
   return (
@@ -43,7 +43,7 @@ function Register({ registerUser, authState }) {
       <div className="flex flex-col -mx-3 mb-6 justify-center items-center">
         <div className="w-7/12 px-3">
           <label
-            className="block tracking-wide text-gray-700 text-xs font-bold mb-2 uppercase"
+            className="block tracking-wide text-gray-700 text-xs font-bold mb-2 "
             htmlFor="grid-password"
           >
             Full name
@@ -61,7 +61,7 @@ function Register({ registerUser, authState }) {
         <div className="flex w-7/12">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
-              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 uppercase"
+              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 "
               htmlFor="grid-region"
             >
               Region
@@ -92,7 +92,7 @@ function Register({ registerUser, authState }) {
           </div>
           <div className="w-full md:w-1/2 px-3">
             <label
-              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 uppercase"
+              className="block tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-district"
             >
               District
@@ -111,7 +111,7 @@ function Register({ registerUser, authState }) {
         <div className="flex w-7/12">
           <div className="w-full md:w-1/2 px-3">
             <label
-              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 uppercase"
+              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 "
               htmlFor="grid-contact"
             >
               Contact
@@ -127,7 +127,7 @@ function Register({ registerUser, authState }) {
 
           <div className="w-full md:w-1/2 px-3">
             <label
-              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 uppercase"
+              className="block tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-email"
             >
               Email
@@ -146,7 +146,7 @@ function Register({ registerUser, authState }) {
         <div className="flex w-7/12">
           <div className="w-full md:w-1/2 px-3">
             <label
-              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 uppercase"
+              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 "
               htmlFor="grid-pswd"
             >
               Password
@@ -154,7 +154,7 @@ function Register({ registerUser, authState }) {
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-pswd"
-              type="text"
+              type="password"
               placeholder="e.g 123456Res"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -163,7 +163,7 @@ function Register({ registerUser, authState }) {
 
           <div className="w-full md:w-1/2 px-3">
             <label
-              className="block tracking-wide text-gray-700 text-xs font-bold mb-2 uppercase"
+              className="block tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-cpswd"
             >
               Confirm password
@@ -171,7 +171,7 @@ function Register({ registerUser, authState }) {
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-cpswd"
-              type="text"
+              type="password"
               placeholder="e.g 123456Res"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}

@@ -8,7 +8,7 @@ import { logoutUser } from "../redux/actions/auth/authActions";
 function NavBar({ cartState, authState, logoutUser }) {
   const [clicked, setClicked] = useState(false);
 
-  const { isAuthenticated } = authState;
+  const { isAuthenticated, user } = authState;
 
   const handleLogOut = () => {
     confirmAlert({
@@ -223,6 +223,15 @@ function NavBar({ cartState, authState, logoutUser }) {
         >
           logout
         </button>
+        {user && user.roles && user.roles[0] === "agronomist" ? (
+          <NavLink
+            activeClassName="active_class"
+            className="border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-md ml-2 mr-2 font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
+            to="/admin"
+          >
+            Dashboard
+          </NavLink>
+        ) : null}
       </div>
     </React.Fragment>
   );

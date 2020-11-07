@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 import { imageUrl } from "../sdk/serverConsts";
 import { productHireRequest } from "../redux/actions/orders/ordersAction";
+import { formatMoney } from "../helperfuncs/formatingfunctions";
 
 const customStyles = {
   content: {
@@ -158,10 +159,26 @@ function HireCards({ product, authState, productHireRequest }) {
               <h1 className="font-bold underline text-agrisolidgreen capitalize">
                 {product.title}
               </h1>
-              <small className="font-bold">Ugx {product.price}</small>
+              <small className="font-bold">
+                Ugx {formatMoney(product.price)}
+              </small>
               <small className="text-agrisolidgreen">
                 {product.description}
               </small>
+              <div className="bg-red-100 mt-4">
+                {!isAuthenticated ? (
+                  <React.Fragment>
+                    <small className="text-red-700 font-bold">
+                      <h6 className="px-4 py-2">
+                        You must login to hire products
+                      </h6>
+                    </small>
+                    <Link to="login" className="text-blue-700 px-4 font-bold">
+                      Click to login
+                    </Link>
+                  </React.Fragment>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
@@ -187,12 +204,14 @@ function HireCards({ product, authState, productHireRequest }) {
           </p>
         </div>
         <div className="px-6">
-          <h1 className="font-bold">Ugx {product.price}</h1>
+          <h1 className="font-bold focus:outline-none">
+            Ugx {formatMoney(product.price)}
+          </h1>
         </div>
         <div className="px-6 pt-4 pb-2 justify-end">
           <button
             onClick={() => setModalOpen(!modalOpen)}
-            className="inline-block px-3 py-1 text-sm font-semibold mr-2 mb-2 w-full bg-agrisolidgreen text-agribackgroung"
+            className="inline-block px-3 py-1 text-sm font-semibold mr-2 mb-2 w-full bg-agrisolidgreen text-agribackgroung focus:outline-none"
           >
             HIRE
           </button>

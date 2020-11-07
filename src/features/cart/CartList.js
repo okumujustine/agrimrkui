@@ -10,6 +10,7 @@ import {
 import { addOrders } from "../../redux/actions/orders/ordersAction";
 import { imageUrl } from "../../sdk/serverConsts";
 import EmptyCartSvg from "./EmptyCartSvg";
+import { formatMoney } from "../../helperfuncs/formatingfunctions";
 
 function CartList({
   cartState,
@@ -51,7 +52,7 @@ function CartList({
                       <small style={{ lineHeight: "15px" }}>
                         {product.description}
                       </small>
-                      <h4 className="pt-2">{product.price}</h4>
+                      <h4 className="pt-2">{formatMoney(product.price)}</h4>
                     </div>
                   </div>
                 </div>
@@ -69,17 +70,19 @@ function CartList({
                       onClick={() =>
                         incrementItemQuantity(cartState.cartItems, product)
                       }
+                      className="focus:outline-none"
                     >
                       <i className="fas fa-plus-circle"></i>
                     </button>
                   </div>
                 </div>
                 <div style={{ flexBasis: "10%" }}>
-                  <h4>{product.count * product.price}</h4>
+                  <h4>{formatMoney(product.count * product.price)}</h4>
                 </div>
                 <div>
                   <button
                     onClick={() => removeFromCart(cartState.cartItems, product)}
+                    className="focus:outline-none"
                   >
                     <i className="fas fa-trash-alt"></i>
                   </button>
@@ -110,9 +113,11 @@ function CartList({
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h5>TOTAL COST</h5>
                 <h5>
-                  {cartState.cartItems.reduce(
-                    (a, c) => a + c.price * c.count,
-                    0
+                  {formatMoney(
+                    cartState.cartItems.reduce(
+                      (a, c) => a + c.price * c.count,
+                      0
+                    )
                   )}
                 </h5>
               </div>

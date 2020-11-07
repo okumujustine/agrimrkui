@@ -10,6 +10,7 @@ import {
   LOGOUT_SUCCESS,
   REFRESH_TOKEN_SUCCESS,
 } from "../types";
+import { baseUrl } from "../../../common/constants";
 
 export const config = {
   headers: {
@@ -22,7 +23,7 @@ export const loadUser = () => async (dispatch, getState) => {
   await dispatch(checkTokenExpiry());
 
   axios
-    .get("http://127.0.0.1:5000/auth/user", tokenConfig(getState))
+    .get(`${baseUrl}/auth/user`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_LOADED,
@@ -65,7 +66,7 @@ export const registerUser = (user) => (dispatch) => {
   };
 
   axios
-    .post("http://127.0.0.1:5000/auth/signup", body, config)
+    .post(`${baseUrl}/auth/signup`, body, config)
     .then((res) => {
       toast.success(`${user.contact} successfuly, you can login`);
     })
@@ -80,7 +81,7 @@ export const loginUser = (user) => (dispatch) => {
   const body = { phone: user.contact, password: user.password };
 
   axios
-    .post("http://127.0.0.1:5000/auth/login", body, config)
+    .post(`${baseUrl}/auth/login`, body, config)
     .then((res) => {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -105,7 +106,7 @@ export const checkTokenExpiry = () => async (dispatch, getState) => {
 
   try {
     const res = await axios.post(
-      "http://127.0.0.1:5000/auth/checkiftokenexpire",
+      `${baseUrl}/auth/checkiftokenexpire`,
       {},
       tokenConfig(getState)
     );
@@ -119,7 +120,7 @@ export const checkTokenExpiry = () => async (dispatch, getState) => {
     }
     try {
       const res = await axios.post(
-        "http://127.0.0.1:5000/auth/refreshtoken",
+        `${baseUrl}/auth/refreshtoken`,
         {},
         refreshTokenConfig(getState)
       );
@@ -183,7 +184,7 @@ export const logoutUser = () => (dispatch, getState) => {
   if (token) {
     axios
       .post(
-        "http://127.0.0.1:5000/auth/logout/access",
+        `${baseUrl}/auth/logout/access`,
         {},
         {
           headers: {
@@ -202,7 +203,7 @@ export const logoutUser = () => (dispatch, getState) => {
   if (token_refresh) {
     axios
       .post(
-        "http://127.0.0.1:5000/auth/logout/refresh",
+        `${baseUrl}/auth/logout/refresh`,
         {},
         {
           headers: {

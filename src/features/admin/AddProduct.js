@@ -8,6 +8,7 @@ import {
   appTokenConfig,
 } from "../../redux/actions/auth/authActions";
 import { getLoggedInToken } from "../../helperfuncs/getToken";
+import { baseUrl } from "../../common/constants";
 
 export default function AddProduct() {
   const [title, setTitle] = React.useState("");
@@ -32,10 +33,7 @@ export default function AddProduct() {
         return;
       }
       axios
-        .get(
-          "http://127.0.0.1:5000/product/category",
-          appTokenConfig(loggedInToken)
-        )
+        .get(`${baseUrl}/product/category`, appTokenConfig(loggedInToken))
         .then((categoryResponse) => {
           setCategories(categoryResponse.data.categories);
         });
@@ -81,7 +79,7 @@ export default function AddProduct() {
 
     axios
       .post(
-        "http://127.0.0.1:5000/product/add",
+        `${baseUrl}/product/add`,
         formData,
         appTokenImageConfig(loggedInToken)
       )

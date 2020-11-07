@@ -3,10 +3,11 @@ import { tokenConfig } from "../auth/authActions";
 
 import { GET_COMMENTS, COMMENTS_LOADING, ADD_COMMENTS_LOADING } from "../types";
 import { toast } from "react-toastify";
+import { baseUrl } from "../../../common/constants";
 
 export const getBlogComments = (id) => (dispatch) => {
   dispatch({ type: COMMENTS_LOADING, payload: true });
-  axios.get(`http://127.0.0.1:5000/blog/comment?blog_id=${id}`).then((res) => {
+  axios.get(`${baseUrl}/blog/comment?blog_id=${id}`).then((res) => {
     dispatch({
       type: GET_COMMENTS,
       payload: res.data,
@@ -19,7 +20,7 @@ export const addBlogComment = (commentData) => (dispatch, getState) => {
   dispatch({ type: ADD_COMMENTS_LOADING, payload: true });
   axios
     .post(
-      `http://127.0.0.1:5000/blog/comment/add?blog_id=${id}`,
+      `${baseUrl}/blog/comment/add?blog_id=${id}`,
       { comment },
       tokenConfig(getState)
     )

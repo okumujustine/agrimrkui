@@ -107,7 +107,7 @@ function NavBar({ cartState, authState, logoutUser }) {
         <NavLink
           to="/cart"
           activeClassName="active_class"
-          className="border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-full mr-2 font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
+          className="border-2 border-agrisolidgreen p-1 text-agrisolidgreen rounded-full mr-2 ml-2 font-bold hover:text-agribackgroung hover:bg-agrisolidgreen focus:outline-none"
         >
           <i className="fas fa-shopping-cart"></i>
           {cartState.cartItems.length}

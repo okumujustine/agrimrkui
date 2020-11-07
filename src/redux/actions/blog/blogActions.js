@@ -9,10 +9,11 @@ import {
   GET_BLOGS_MORE,
 } from "../types";
 import { toast } from "react-toastify";
+import { baseUrl } from "../../../common/constants";
 
 export const getBlogs = (page, more) => (dispatch, getState) => {
   dispatch({ type: GET_BLOGS_LOADING, payload: true });
-  axios.get(`http://127.0.0.1:5000/blog?page=${page}`).then((res) => {
+  axios.get(`${baseUrl}/blog?page=${page}`).then((res) => {
     dispatch({
       type: GET_BLOGS,
       payload: { data: res.data, page },
@@ -31,7 +32,7 @@ export const getMoreBlogs = (page, more) => (dispatch, getState) => {
     return;
   }
   dispatch({ type: GET_BLOGS_LOADING, payload: true });
-  axios.get(`http://127.0.0.1:5000/blog?page=${page}`).then((res) => {
+  axios.get(`${baseUrl}/blog?page=${page}`).then((res) => {
     if (res.data.length === 0) {
       dispatch({
         type: BLOGS_LAST_REACHED,
@@ -64,7 +65,7 @@ export const addBlog = (blog) => (dispatch, getState) => {
     return;
   }
   axios
-    .post("http://127.0.0.1:5000/blog/add", blog, tokenImageConfig(getState))
+    .post(`${baseUrl}/blog/add`, blog, tokenImageConfig(getState))
     .then((res) => {
       toast.success("Blog successfully added!");
     })
@@ -75,7 +76,7 @@ export const addBlog = (blog) => (dispatch, getState) => {
 
 export const delBlog = (blog_id) => (dispatch) => {
   axios
-    .post("http://127.0.0.1:5000/blog/delete?blog_id=" + blog_id, config)
+    .post(`${baseUrl}/blog/delete?blog_id=` + blog_id, config)
     .then((res) => {
       dispatch(getBlogs());
       toast.success("Blog successfully deleted!");

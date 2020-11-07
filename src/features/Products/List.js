@@ -7,6 +7,7 @@ import axios from "axios";
 import ProductCart from "../../components/ProductCart";
 import { getProducts } from "../../redux/actions/products/ProductActions";
 import "../../components/PaginationCustom.css";
+import { baseUrl } from "../../common/constants";
 
 function List({ getProducts, productsState }) {
   const {
@@ -22,9 +23,7 @@ function List({ getProducts, productsState }) {
   React.useEffect(() => {
     async function fetchProductAndCategory() {
       await getProductsData();
-      let categoryResponse = await axios.get(
-        "http://127.0.0.1:5000/product/category"
-      );
+      let categoryResponse = await axios.get(`${baseUrl}/product/category`);
       setCategory(categoryResponse.data.categories);
     }
 

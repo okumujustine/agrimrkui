@@ -9,6 +9,7 @@ import {
   ORDERS_SUCCESS,
   HIRE_LIST_LOADED,
 } from "../types";
+import { baseUrl } from "../../../common/constants";
 
 export const addOrders = () => (dispatch, getState) => {
   dispatch({
@@ -20,7 +21,7 @@ export const addOrders = () => (dispatch, getState) => {
   const body = { order: cartItems };
 
   axios
-    .post("http://127.0.0.1:5000/orders/add", body, tokenConfig(getState))
+    .post(`${baseUrl}/orders/add`, body, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: ORDERS_SUCCESS,
@@ -62,7 +63,7 @@ export const productHireRequest = (product) => (dispatch, getState) => {
   };
 
   axios
-    .post("http://127.0.0.1:5000/orders/hire/add", body, tokenConfig(getState))
+    .post(`${baseUrl}/orders/hire/add`, body, tokenConfig(getState))
     .then((res) => {
       toast.success("Hire Request successfully sent!");
       setTimeout(() => (window.location = "/hirelist"), 400);
@@ -80,7 +81,7 @@ export const fetchHireList = (pageNumber, filterObject) => (
   console.log("filterObject", filterObject);
   axios
     .post(
-      "http://127.0.0.1:5000/orders/hirelist?page=" + pageNumber,
+      `${baseUrl}/orders/hirelist?page=` + pageNumber,
       { filterObject: filterObject },
       tokenConfig(getState)
     )

@@ -1,5 +1,5 @@
 // const ProductionServerUrl = 'http://127.0.0.1:5000';
 
-const localServerUrl = "http://127.0.0.1:5000";
+import { baseUrl } from "../common/constants";
 
-export const imageUrl = `${localServerUrl}/static/image/uploads/`;
+export const imageUrl = `${baseUrl}/static/image/uploads/`;

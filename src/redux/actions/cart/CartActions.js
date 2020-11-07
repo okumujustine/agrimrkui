@@ -4,6 +4,7 @@ import {
   INCREMENT_ITEM_QUANTITY,
   DECREMENT_ITEM_QUANTITY,
 } from "../types";
+import { cartItemKey } from "../../../common/constants";
 
 export const addToCart = (items, product) => (dispatch) => {
   const cartItems = items.slice();
@@ -80,5 +81,5 @@ export const decrementItemQuantity = (items, product) => (dispatch) => {
 };
 
 const updateCartStorage = (cartItems) => {
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  localStorage.setItem(cartItemKey, JSON.stringify(cartItems));
 };

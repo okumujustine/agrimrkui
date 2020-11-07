@@ -8,10 +8,11 @@ import {
   LOGOUT_SUCCESS,
   REFRESH_TOKEN_SUCCESS,
 } from "../../actions/types";
+import { tokenKey, refreshTokenKey } from "../../../common/constants";
 
 const initialState = {
-  token: localStorage.getItem("token"),
-  refreshToken: localStorage.getItem("refreshToken"),
+  token: localStorage.getItem(tokenKey),
+  refreshToken: localStorage.getItem(refreshTokenKey),
   isAuthenticated: null,
   isLoading: false,
   user: null,
@@ -42,8 +43,8 @@ export default (state = initialState, action) => {
     case AUTH_ERROR:
     case LOGIN_FAILED:
     case REGISTER_FAILED:
-      localStorage.removeItem("token");
-      localStorage.removeItem("refreshToken");
+      localStorage.removeItem(tokenKey);
+      localStorage.removeItem(refreshTokenKey);
       return {
         token: null,
         isAuthenticated: false,
@@ -51,8 +52,8 @@ export default (state = initialState, action) => {
         user: null,
       };
     case REFRESH_TOKEN_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("refreshToken", action.payload.refreshToken);
+      localStorage.setItem(tokenKey, action.payload.token);
+      localStorage.setItem(refreshTokenKey, action.payload.refreshToken);
       return {
         ...state,
         ...action.payload,
@@ -60,8 +61,8 @@ export default (state = initialState, action) => {
         isLoading: false,
       };
     case LOGIN_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("refreshToken", action.payload.refreshToken);
+      localStorage.setItem(tokenKey, action.payload.token);
+      localStorage.setItem(refreshTokenKey, action.payload.refreshToken);
       return {
         ...state,
         ...action.payload,

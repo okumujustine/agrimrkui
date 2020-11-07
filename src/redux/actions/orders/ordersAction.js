@@ -9,14 +9,14 @@ import {
   ORDERS_SUCCESS,
   HIRE_LIST_LOADED,
 } from "../types";
-import { baseUrl } from "../../../common/constants";
+import { baseUrl, cartItemKey } from "../../../common/constants";
 
 export const addOrders = () => (dispatch, getState) => {
   dispatch({
     type: ORDERS_LOADING,
   });
 
-  const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  const cartItems = JSON.parse(localStorage.getItem(cartItemKey));
 
   const body = { order: cartItems };
 
@@ -77,8 +77,6 @@ export const fetchHireList = (pageNumber, filterObject) => (
   dispatch,
   getState
 ) => {
-  console.log("pageNumber", pageNumber);
-  console.log("filterObject", filterObject);
   axios
     .post(
       `${baseUrl}/orders/hirelist?page=` + pageNumber,

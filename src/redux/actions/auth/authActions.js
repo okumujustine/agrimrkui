@@ -10,7 +10,7 @@ import {
   LOGOUT_SUCCESS,
   REFRESH_TOKEN_SUCCESS,
 } from "../types";
-import { baseUrl } from "../../../common/constants";
+import { baseUrl, tokenKey, refreshTokenKey } from "../../../common/constants";
 
 export const config = {
   headers: {
@@ -196,7 +196,7 @@ export const logoutUser = () => (dispatch, getState) => {
         if (res.data.error) {
           console.error(res.data.error);
         } else {
-          localStorage.removeItem("token");
+          localStorage.removeItem(tokenKey);
         }
       });
   }
@@ -215,7 +215,7 @@ export const logoutUser = () => (dispatch, getState) => {
         if (res.data.error) {
           console.error(res.data.error);
         } else {
-          localStorage.removeItem("refreshToken");
+          localStorage.removeItem(refreshTokenKey);
         }
       });
   }

@@ -1,9 +1,9 @@
 import axios from "axios";
-import { tokenConfig } from "../auth/authActions";
 
 import { GET_COMMENTS, COMMENTS_LOADING, ADD_COMMENTS_LOADING } from "../types";
 import { toast } from "react-toastify";
 import { baseUrl } from "../../../common/constants";
+import { tokenConfig } from "../../../helperfuncs/getToken";
 
 export const getBlogComments = (id) => (dispatch) => {
   dispatch({ type: COMMENTS_LOADING, payload: true });

@@ -2,7 +2,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import moment from "moment";
 
-import { tokenConfig } from "../auth/authActions";
 import {
   ORDERS_LOADING,
   ORDERS_FAILED,
@@ -10,6 +9,7 @@ import {
   HIRE_LIST_LOADED,
 } from "../types";
 import { baseUrl, cartItemKey } from "../../../common/constants";
+import { tokenConfig } from "../../../helperfuncs/getToken";
 
 export const addOrders = () => (dispatch, getState) => {
   dispatch({

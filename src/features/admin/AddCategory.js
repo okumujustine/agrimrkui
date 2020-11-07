@@ -1,7 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import { appTokenConfig } from "../../redux/actions/auth/authActions";
-import { getLoggedInToken } from "../../helperfuncs/getToken";
+import { getLoggedInToken, appTokenConfig } from "../../helperfuncs/getToken";
 import GetProductCategories from "./GetProductCategories";
 import { baseUrl } from "../../common/constants";
 

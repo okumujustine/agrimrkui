@@ -11,12 +11,11 @@ import {
   REFRESH_TOKEN_SUCCESS,
 } from "../types";
 import { baseUrl, tokenKey, refreshTokenKey } from "../../../common/constants";
-
-export const config = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
+import {
+  tokenConfig,
+  refreshTokenConfig,
+  config,
+} from "../../../helperfuncs/getToken";
 
 export const loadUser = () => async (dispatch, getState) => {
   dispatch({ type: USER_LOADING });
@@ -24,6 +23,21 @@ export const loadUser = () => async (dispatch, getState) => {
 
   axios
     .get(`${baseUrl}/auth/user`, tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({ type: AUTH_ERROR });
+    });
+};
+
+export const loadUserWhenAlreadyLoggedIn = () => async (dispatch, getState) => {
+  await dispatch(checkTokenExpiry());
+  axios
+    .get(`${baseUrl}/auth/user/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_LOADED,
@@ -133,48 +147,6 @@ export const checkTokenExpiry = () => async (dispatch, getState) => {
       dispatch({ type: AUTH_ERROR });
     }
   }
-};
-
-// Setup config with token - helper function
-export const tokenConfig = (getState) => {
-  const token = getState().authReducer.token;
-  if (token) {
-    config.headers["Authorization"] = "Bearer " + token;
-  }
-  return config;
-};
-
-export const appTokenConfig = (token) => {
-  if (token) {
-    config.headers["Authorization"] = "Bearer " + token;
-  }
-  return config;
-};
-
-export const tokenImageConfig = (getState) => {
-  const token = getState().authReducer.token;
-  if (token) {
-    config.headers["Authorization"] = "Bearer " + token;
-    config.headers["content-type"] = "multipart/form-data";
-  }
-  return config;
-};
-
-export const appTokenImageConfig = (token) => {
-  console.log(tokenConfig);
-  if (token) {
-    config.headers["Authorization"] = "Bearer " + token;
-    config.headers["content-type"] = "multipart/form-data";
-  }
-  return config;
-};
-
-export const refreshTokenConfig = (getState) => {
-  const token_refresh = getState().authReducer.refreshToken;
-  if (token_refresh) {
-    config.headers["Authorization"] = "Bearer " + token_refresh;
-  }
-  return config;
 };
 
 export const logoutUser = () => (dispatch, getState) => {

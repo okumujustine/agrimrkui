@@ -4,10 +4,10 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 import {
-  appTokenImageConfig,
+  getLoggedInToken,
   appTokenConfig,
-} from "../../redux/actions/auth/authActions";
-import { getLoggedInToken } from "../../helperfuncs/getToken";
+  appTokenImageConfig,
+} from "../../helperfuncs/getToken";
 import { baseUrl } from "../../common/constants";
 
 export default function AddProduct() {

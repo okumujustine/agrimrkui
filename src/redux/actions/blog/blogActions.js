@@ -1,5 +1,4 @@
 import axios from "axios";
-import { config, tokenImageConfig } from "../auth/authActions";
 import { confirmAlert } from "react-confirm-alert"; // Import
 
 import {
@@ -10,10 +9,14 @@ import {
 } from "../types";
 import { toast } from "react-toastify";
 import { baseUrl } from "../../../common/constants";
+import { tokenImageConfig, config } from "../../../helperfuncs/getToken";
 
-export const getBlogs = (page, more) => (dispatch, getState) => {
+export const getBlogs = (page, filterObject) => (dispatch) => {
   dispatch({ type: GET_BLOGS_LOADING, payload: true });
-  axios.get(`${baseUrl}/blog?page=${page}`).then((res) => {
+
+  const { title } = filterObject;
+
+  axios.get(`${baseUrl}/blog?page=${page}&qtitle=${title}`).then((res) => {
     dispatch({
       type: GET_BLOGS,
       payload: { data: res.data, page },
@@ -22,7 +25,12 @@ export const getBlogs = (page, more) => (dispatch, getState) => {
   });
 };
 
-export const getMoreBlogs = (page, more) => (dispatch, getState) => {
+export const getMoreBlogs = (page, more, filterObject) => (
+  dispatch,
+  getState
+) => {
+  const { title } = filterObject;
+
   if (more) {
     page = getState().blogReducer.page + 1;
   }
@@ -32,7 +40,7 @@ export const getMoreBlogs = (page, more) => (dispatch, getState) => {
     return;
   }
   dispatch({ type: GET_BLOGS_LOADING, payload: true });
-  axios.get(`${baseUrl}/blog?page=${page}`).then((res) => {
+  axios.get(`${baseUrl}/blog?page=${page}&qtitle=${title}`).then((res) => {
     if (res.data.length === 0) {
       dispatch({
         type: BLOGS_LAST_REACHED,
@@ -69,7 +77,7 @@ export const addBlog = (blog) => (dispatch, getState) => {
     .then((res) => {
       toast.success("Blog successfully added!");
     })
-    .then((error) => {
+    .catch((error) => {
       toast.error("Failed to add blog, try again later");
     });
 };

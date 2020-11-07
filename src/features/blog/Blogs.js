@@ -7,12 +7,20 @@ import { getBlogs, getMoreBlogs } from "../../redux/actions/blog/blogActions";
 import { Link } from "react-router-dom";
 
 function Blogs({ getBlogs, blogState, getMoreBlogs }) {
+  const [blogTitleSearch, setBlogTitleSearch] = React.useState("");
+
   React.useEffect(() => {
-    getBlogs(1, false);
+    fetchBlogs(1);
   }, []);
 
-  const fetchBlogs = () => {
-    getMoreBlogs(blogState.page + 1, true);
+  const fetchBlogs = (page, filterObject = {}) => {
+    filterObject["title"] = blogTitleSearch;
+    getBlogs(page, filterObject);
+  };
+
+  const fetchMoreBlogs = (filterObject = {}) => {
+    filterObject["title"] = blogTitleSearch;
+    getMoreBlogs(blogState.page + 1, true, filterObject);
   };
 
   return (
@@ -29,7 +37,7 @@ function Blogs({ getBlogs, blogState, getMoreBlogs }) {
         <div className="w-7/12">
           <InfiniteScroll
             dataLength={blogState.blogs.length}
-            next={fetchBlogs}
+            next={fetchMoreBlogs}
             hasMore={blogState.notLast}
             loader={<h4>Loading...</h4>}
           >

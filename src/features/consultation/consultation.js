@@ -1,8 +1,11 @@
 import * as React from "react";
 import io from "socket.io-client";
+import axios from "axios";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import "./ScrollBar.css";
-import { connect } from "react-redux";
+import { baseUrl } from "../../common/constants";
 
 let endPoint = "http://localhost:5000";
 
@@ -13,12 +16,26 @@ function Consultation({ authState }) {
 
   const [messages, setMessages] = React.useState([]);
   const [message, setMessage] = React.useState("");
-  // const [sender, setSender] = React.useState("")
   const [reciever, setReciever] = React.useState("");
+  const [agronomists, setAgronomists] = React.useState([]);
+  const [selectedChat, setSelectedChat] = React.useState(null);
 
   React.useEffect(() => {
-    getMessages();
+    if (selectedChat) {
+      getMessages();
+    }
   }, [messages.length]);
+
+  React.useEffect(() => {
+    axios
+      .get(`${baseUrl}/auth/user/agronomist`)
+      .then((res) => {
+        setAgronomists(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const getMessages = () => {
     private_socket.on("new_private_message", (privateMsg) => {
@@ -26,13 +43,24 @@ function Consultation({ authState }) {
     });
   };
 
+  const registerChatUser = (userToRegister) => {
+    private_socket.emit("username", userToRegister.phone);
+  };
+
   if (isAuthenticated) {
-    private_socket.emit("username", user.phone);
+    registerChatUser(user);
   } else {
     console.log("Not Logged in");
   }
 
-  const onSendMessage = () => {
+  const selectedAgronomist = (agronomist) => {
+    setReciever(agronomist.phone);
+    setSelectedChat(agronomist);
+  };
+
+  const onSendMessage = (e) => {
+    e.preventDefault();
+
     if (isAuthenticated) {
       if (message !== "") {
         setMessage("");
@@ -54,8 +82,72 @@ function Consultation({ authState }) {
   };
 
   return (
-    <div>
-      {messages.length > 0 ? (
+    <div className="flex flex-row justify-between mx-5">
+      <div className="w-3/12">
+        {agronomists.map((agronomist) => (
+          <React.Fragment key={agronomist.id}>
+            <div
+              onClick={() => selectedAgronomist(agronomist)}
+              className={
+                selectedChat && selectedChat.id === agronomist.id
+                  ? `bg-gray-100 max-w-xs  border-2 border-gray-200 rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer hover:bg-gray-100`
+                  : `bg-white max-w-xs  border-2 border-gray-200 rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer hover:bg-gray-100`
+              }
+            >
+              <div className="bg-black rounded-full h-12 w-12"></div>
+              <div className="flex flex-col">
+                <h5 className="capitalize">{agronomist.name}</h5>
+                <small>
+                  <b>{agronomist.phone}</b>
+                </small>
+              </div>
+              <div>
+                <i className="fas fa-angle-right text-5xl"></i>
+              </div>
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+      <div
+        className="bg-white w-8/12 px-4 py-2 flex flex-col relative"
+        style={{ height: "85vh" }}
+      >
+        <div>
+          {selectedChat ? (
+            <h5>
+              {selectedChat.name}
+              <small>
+                <b> ({selectedChat.phone})</b>
+              </small>
+            </h5>
+          ) : null}
+        </div>
+        {selectedChat ? (
+          <div className="border-2 border-black" style={{ height: "92%" }}>
+            message area
+          </div>
+        ) : (
+          <i>
+            <b>select an agronomist to start chatting</b>
+          </i>
+        )}
+        <div className="absolute bottom-0 w-full">
+          {selectedChat ? (
+            <form onSubmit={onSendMessage}>
+              <input
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="send message"
+                className="border-2 px-4 py-1"
+                value={message}
+                name="type message here .."
+                placeholder="message"
+              />
+              <button type="submit">send</button>
+            </form>
+          ) : null}
+        </div>
+      </div>
+      {/* {messages.length > 0 ? (
         messages.map((msg, index) => (
           <div key={index}>
             <p>
@@ -65,24 +157,7 @@ function Consultation({ authState }) {
         ))
       ) : (
         <p>no message yet</p>
-      )}
-      <br />
-      <br />
-      <input
-        style={{ border: "1px solid black" }}
-        value={reciever}
-        name="reciever"
-        placeholder="reciever"
-        onChange={(e) => setReciever(e.target.value)}
-      />
-      <input
-        style={{ border: "1px solid green", marginLeft: "10px" }}
-        value={message}
-        name="message"
-        placeholder="message"
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={onSendMessage}>Send Message</button>
+      )} */}
     </div>
   );
 }

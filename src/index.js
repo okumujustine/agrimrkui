@@ -15,7 +15,7 @@ import store from "./redux/store";
 import Modal from "react-modal";
 
 const alertOptions = {
-  position: positions.TOP_RIGHT,
+  position: positions.TOP_LEFT,
   timeout: 2000,
   offset: "30px",
   transition: transitions.SCALE,

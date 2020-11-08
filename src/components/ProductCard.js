@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
-import { addToCart } from "../redux/actions/cart/CartActions";
+import {
+  addToCart,
+  itemAlreadyInCart,
+} from "../redux/actions/cart/CartActions";
 import "./Product.css";
 import { imageUrl } from "../sdk/serverConsts";
 import { formatMoney } from "../helperfuncs/formatingfunctions";
 
 function ProductCard({ product, addToCart, cartItemsState }) {
+  const isItemInCart = itemAlreadyInCart(cartItemsState, product);
   return (
     <Link
       to="/shop"
@@ -38,7 +42,7 @@ function ProductCard({ product, addToCart, cartItemsState }) {
           onClick={() => addToCart(cartItemsState, product)}
           className="inline-block px-3 py-1 text-sm font-semibold mr-2 mb-2 w-full bg-agrisolidgreen text-agribackgroung focus:outline-none"
         >
-          ADD TO CART
+          {isItemInCart ? "INCREMENT" : "ADD TO CART"}
         </button>
       </div>
     </Link>

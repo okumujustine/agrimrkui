@@ -8,6 +8,20 @@ import {
 } from "../types";
 import { cartItemKey } from "../../../common/constants";
 
+export const itemAlreadyInCart = (items, product) => {
+  let itemsInCart = false;
+
+  let currentCartItems = items.slice();
+
+  currentCartItems.forEach((item) => {
+    if (item.id === product.id) {
+      itemsInCart = true;
+    }
+  });
+
+  return itemsInCart;
+};
+
 export const addToCart = (items, product) => (dispatch) => {
   const cartItems = items.slice();
   let productInCart = false;

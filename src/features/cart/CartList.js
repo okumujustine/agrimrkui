@@ -82,7 +82,7 @@ function CartList({
                 <div>
                   <button
                     onClick={() => removeFromCart(cartState.cartItems, product)}
-                    className="focus:outline-none"
+                    className="focus:outline-none text-red-700"
                   >
                     <i className="fas fa-trash-alt"></i>
                   </button>

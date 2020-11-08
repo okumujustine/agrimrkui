@@ -4,10 +4,10 @@ import Pagination from "react-js-pagination";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import ProductCart from "../../components/ProductCart";
 import { getProducts } from "../../redux/actions/products/ProductActions";
 import "../../components/PaginationCustom.css";
 import { baseUrl } from "../../common/constants";
+import ProductCard from "../../components/ProductCard";
 
 function List({ getProducts, productsState }) {
   const {
@@ -99,7 +99,7 @@ function List({ getProducts, productsState }) {
             {products.length === 0 && <p>No product listings</p>}
             {products.map((product) => (
               <React.Fragment key={product.id}>
-                <ProductCart product={product} />
+                <ProductCard product={product} />
               </React.Fragment>
             ))}
           </div>

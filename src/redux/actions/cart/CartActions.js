@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -12,12 +14,14 @@ export const addToCart = (items, product) => (dispatch) => {
 
   cartItems.forEach((item) => {
     if (item.id === product.id) {
+      toast.success(`${product.title} quantity incremented in cart`);
       productInCart = true;
       item.count += 1;
     }
   });
 
   if (!productInCart) {
+    toast.success(`${product.title} Added to cart`);
     cartItems.push({ ...product, count: 1 });
   }
 

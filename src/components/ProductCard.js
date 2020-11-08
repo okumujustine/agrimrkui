@@ -9,7 +9,7 @@ import "./Product.css";
 import { imageUrl } from "../sdk/serverConsts";
 import { formatMoney } from "../helperfuncs/formatingfunctions";
 
-function ProductCart({ product, addToCart, cartItemsState }) {
+function ProductCard({ product, addToCart, cartItemsState }) {
   return (
     <Link
       to="/shop"
@@ -49,4 +49,4 @@ const mapStateToProps = (state) => ({
   cartItemsState: state.cartReducer.cartItems,
 });
 
-export default connect(mapStateToProps, { addToCart })(ProductCart);
+export default connect(mapStateToProps, { addToCart })(ProductCard);

@@ -4,6 +4,7 @@ import { Redirect, Link } from "react-router-dom";
 import PhoneInput from "react-phone-number-input/input";
 
 import { loginUser } from "../../redux/actions/auth/authActions";
+import { toast } from "react-toastify";
 
 function Login({ loginUser, authState }) {
   const [value, setValue] = React.useState();
@@ -20,8 +21,24 @@ function Login({ loginUser, authState }) {
     return <Redirect to="/home" />;
   }
 
+  const loginUserSubmit = (e) => {
+    e.preventDefault();
+
+    if (!value) {
+      toast.error("enter phone number!");
+      return;
+    }
+    if (!password) {
+      toast.error("enter password please!");
+      return;
+    }
+
+    loginUser(userData);
+  };
+
   return (
-    <div
+    <form
+      onSubmit={loginUserSubmit}
       className="flex flex-col items-center justify-center w-full"
       style={{ height: "70vh" }}
     >
@@ -57,8 +74,8 @@ function Login({ loginUser, authState }) {
         />
       </div>
       <button
+        type="submit"
         className="bg-agrisolidgreen text-agribackgroung w-5/12 p-2 rounded font-bold"
-        onClick={() => loginUser(userData)}
       >
         Login
       </button>
@@ -71,7 +88,7 @@ function Login({ loginUser, authState }) {
           sign up
         </Link>
       </p>
-    </div>
+    </form>
   );
 }
 

@@ -5,6 +5,8 @@ import PhoneInput from "react-phone-number-input/input";
 
 import "./LoginRegister.css";
 import { registerUser } from "../../redux/actions/auth/authActions";
+import { toast } from "react-toastify";
+import { config } from "../../helperfuncs/getToken";
 
 function Register({ registerUser, authState }) {
   const [name, setName] = React.useState("");
@@ -38,9 +40,56 @@ function Register({ registerUser, authState }) {
     registerUser(d);
   };
 
+  const onRegisterUserSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name) {
+      toast.error("enter name please!");
+      return;
+    }
+
+    if (!region) {
+      toast.error("select region please!");
+      return;
+    }
+
+    if (!district) {
+      toast.error("enter district please!");
+      return;
+    }
+    if (!value) {
+      toast.error("enter contact please!");
+      return;
+    }
+    if (!email) {
+      toast.error("enter email please!");
+      return;
+    }
+
+    if (!password) {
+      toast.error("enter password please!");
+      return;
+    }
+
+    if (!confirm) {
+      toast.error("enter confirm password please!");
+      return;
+    }
+
+    if (password !== confirm) {
+      toast.error("make sure password and confirm password match!");
+      return;
+    }
+
+    register(userData);
+  };
+
   return (
     <div style={{ height: "65vh" }}>
-      <div className="flex flex-col -mx-3 mb-6 justify-center items-center">
+      <form
+        onSubmit={onRegisterUserSubmit}
+        className="flex flex-col -mx-3 mb-6 justify-center items-center"
+      >
         <div className="w-7/12 px-3">
           <label
             className="block tracking-wide text-gray-700 text-xs font-bold mb-2 "
@@ -181,12 +230,12 @@ function Register({ registerUser, authState }) {
         <div className="w-7/12 px-3 mt-6">
           <button
             className="bg-agrisolidgreen text-agribackgroung w-full p-2"
-            onClick={() => register(userData)}
+            type="submit"
           >
             Register
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

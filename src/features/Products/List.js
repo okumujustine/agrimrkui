@@ -18,13 +18,10 @@ function List({ getProducts, productsState }) {
   } = productsState;
 
   const [searchValue, setSearchValue] = React.useState("");
-  const [category, setCategory] = React.useState([]);
 
   React.useEffect(() => {
     async function fetchProductAndCategory() {
       await getProductsData();
-      let categoryResponse = await axios.get(`${baseUrl}/product/category`);
-      setCategory(categoryResponse.data.categories);
     }
 
     fetchProductAndCategory();
@@ -35,7 +32,9 @@ function List({ getProducts, productsState }) {
     getProducts(pageNumber, filterObject);
   };
 
-  const onSearch = async () => {
+  const onSearch = async (e) => {
+    e.preventDefault();
+
     if (!searchValue) {
       toast.error("enter a search text please!!");
       await getProductsData(1);
@@ -60,22 +59,12 @@ function List({ getProducts, productsState }) {
           <h5 className="pb-3 pt-2 font-bold text-agrisolidgreen underline">
             Categories
           </h5>
-          <div className="flex flex-col">
-            {category.map((category) => (
-              <React.Fragment key={category.id}>
-                <button
-                  onClick={categorySearch}
-                  value={category.name}
-                  className="capitalize rounded bg-green-200 mt-2 w-10/12 text-agrisolidgreen"
-                >
-                  {category.name}
-                </button>
-              </React.Fragment>
-            ))}
-          </div>
         </div>
         <div className="w-11/12">
-          <div className="flex w-full mt-4 mb-4 justify-between">
+          <form
+            onSubmit={onSearch}
+            className="flex w-full mt-4 mb-4 justify-between"
+          >
             <input
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -89,12 +78,12 @@ function List({ getProducts, productsState }) {
               <i className="fas fa-times-circle"></i>
             </div>
             <button
-              onClick={onSearch}
+              type="submit"
               className="w-1/12 bg-agrisolidgreen text-agribackgroung font-bold "
             >
               Search
             </button>
-          </div>
+          </form>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4">
             {products.length === 0 && <p>No product listings</p>}
             {products.map((product) => (

@@ -17,6 +17,7 @@ export const getBlogs = (page, filterObject) => (dispatch) => {
   const { title } = filterObject;
 
   axios.get(`${baseUrl}/blog?page=${page}&qtitle=${title}`).then((res) => {
+    console.log(res);
     dispatch({
       type: GET_BLOGS,
       payload: { data: res.data, page },

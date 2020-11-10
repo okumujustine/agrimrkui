@@ -5,26 +5,13 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import "./ScrollBar.css";
-import { baseUrl } from "../../common/constants";
+import { baseUrl, private_socket } from "../../common/constants";
+import ChatSvg from "./ChatSvg";
 
-let endPoint = "http://localhost:5000";
-
-let private_socket = io.connect(`${endPoint}/private`);
-
-function Consultation({ authState }) {
+function Consultation({ authState, showChat, selectedUser }) {
   const { isAuthenticated, user } = authState;
 
-  const [messages, setMessages] = React.useState([]);
-  const [message, setMessage] = React.useState("");
-  const [reciever, setReciever] = React.useState("");
   const [agronomists, setAgronomists] = React.useState([]);
-  const [selectedChat, setSelectedChat] = React.useState(null);
-
-  React.useEffect(() => {
-    if (selectedChat) {
-      getMessages();
-    }
-  }, [messages.length]);
 
   React.useEffect(() => {
     axios
@@ -37,127 +24,62 @@ function Consultation({ authState }) {
       });
   }, []);
 
-  const getMessages = () => {
-    private_socket.on("new_private_message", (privateMsg) => {
-      setMessages([...messages, privateMsg]);
-    });
-  };
-
   const registerChatUser = (userToRegister) => {
     private_socket.emit("username", userToRegister.phone);
   };
 
-  if (isAuthenticated) {
+  if (isAuthenticated && user) {
     registerChatUser(user);
   } else {
     console.log("Not Logged in");
   }
 
-  const selectedAgronomist = (agronomist) => {
-    setReciever(agronomist.phone);
-    setSelectedChat(agronomist);
-  };
-
-  const onSendMessage = (e) => {
-    e.preventDefault();
-
-    if (isAuthenticated) {
-      if (message !== "") {
-        setMessage("");
-        private_socket.emit("private_message", {
-          sender: user.phone,
-          reciever: reciever,
-          message: message,
-        });
-        setMessages([
-          ...messages,
-          { sender: user.phone, reciever: reciever, message: message },
-        ]);
-      } else {
-        alert("Please Add A Message");
-      }
-    } else {
-      console.log("login first");
-    }
-  };
-
   return (
-    <div className="flex flex-row justify-between mx-5">
-      <div className="w-3/12">
-        {agronomists.map((agronomist) => (
-          <React.Fragment key={agronomist.id}>
-            <div
-              onClick={() => selectedAgronomist(agronomist)}
-              className={
-                selectedChat && selectedChat.id === agronomist.id
-                  ? `bg-gray-100 max-w-xs  border-2 border-gray-200 rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer hover:bg-gray-100`
-                  : `bg-white max-w-xs  border-2 border-gray-200 rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer hover:bg-gray-100`
-              }
-            >
-              <div className="bg-black rounded-full h-12 w-12"></div>
-              <div className="flex flex-col">
-                <h5 className="capitalize">{agronomist.name}</h5>
-                <small>
-                  <b>{agronomist.phone}</b>
-                </small>
+    <div
+      className={!showChat ? "flex mx-5 justify-between" : "flex flex-col mx-5"}
+    >
+      <div className={!showChat ? "w-3/12" : null}>
+        <h5 className="text-xl pb-2 text-purple-500">start chatting ....</h5>
+        {agronomists.map((agronomist) => {
+          return (
+            <React.Fragment key={agronomist.id}>
+              <div
+                className={
+                  user && user.phone === agronomist.phone ? "hidden" : "block"
+                }
+              >
+                <Link
+                  to={{
+                    pathname: `/chat/${agronomist.phone}`,
+                    state: agronomist,
+                  }}
+                  className={
+                    user && selectedUser === agronomist.phone
+                      ? `mb-2 max-w-xs  border-2 border-agrisolidgreen rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer bg-gray-200 hover:bg-gray-200`
+                      : `mb-2 bg-white max-w-xs  border-2 border-agrisolidgreen rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer hover:bg-gray-100`
+                  }
+                >
+                  <div className="bg-black rounded-full h-12 w-12"></div>
+                  <div className="flex flex-col">
+                    <h5 className="capitalize">{agronomist.name}</h5>
+                    <small>
+                      <b>{agronomist.phone}</b>
+                    </small>
+                  </div>
+                  <div>
+                    <i className="fas fa-angle-right text-5xl"></i>
+                  </div>
+                </Link>
               </div>
-              <div>
-                <i className="fas fa-angle-right text-5xl"></i>
-              </div>
-            </div>
-          </React.Fragment>
-        ))}
+            </React.Fragment>
+          );
+        })}
       </div>
-      <div
-        className="bg-white w-8/12 px-4 py-2 flex flex-col relative"
-        style={{ height: "85vh" }}
-      >
-        <div>
-          {selectedChat ? (
-            <h5>
-              {selectedChat.name}
-              <small>
-                <b> ({selectedChat.phone})</b>
-              </small>
-            </h5>
-          ) : null}
+      {!showChat ? (
+        <div className="w-7/12">
+          <ChatSvg />
         </div>
-        {selectedChat ? (
-          <div className="border-2 border-black" style={{ height: "92%" }}>
-            message area
-          </div>
-        ) : (
-          <i>
-            <b>select an agronomist to start chatting</b>
-          </i>
-        )}
-        <div className="absolute bottom-0 w-full">
-          {selectedChat ? (
-            <form onSubmit={onSendMessage}>
-              <input
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="send message"
-                className="border-2 px-4 py-1"
-                value={message}
-                name="type message here .."
-                placeholder="message"
-              />
-              <button type="submit">send</button>
-            </form>
-          ) : null}
-        </div>
-      </div>
-      {/* {messages.length > 0 ? (
-        messages.map((msg, index) => (
-          <div key={index}>
-            <p>
-              {msg.sender} - {msg.message}
-            </p>
-          </div>
-        ))
-      ) : (
-        <p>no message yet</p>
-      )} */}
+      ) : null}
     </div>
   );
 }

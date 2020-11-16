@@ -1,5 +1,4 @@
 import * as React from "react";
-import io from "socket.io-client";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,22 +6,50 @@ import { Link } from "react-router-dom";
 import "./ScrollBar.css";
 import { baseUrl, private_socket } from "../../common/constants";
 import ChatSvg from "./ChatSvg";
+import { getLoggedInToken, appTokenConfig } from "../../helperfuncs/getToken";
 
-function Consultation({ authState, showChat, selectedUser }) {
+function Consultation({
+  authState,
+  showChat,
+  selectedUser,
+  setUnreadMessages,
+}) {
   const { isAuthenticated, user } = authState;
 
   const [agronomists, setAgronomists] = React.useState([]);
 
-  React.useEffect(() => {
+  const getUserLising = (user, loginStatus) => {
+    if (loginStatus && user === "normal") {
+      getUserListingApi(`${baseUrl}/auth/user/agronomist/auth`, true);
+    } else {
+      getUserListingApi(`${baseUrl}/auth/user/agronomist`, false);
+    }
+  };
+
+  const getUserListingApi = async (url, token) => {
+    let loggedInToken;
+
+    if (token) {
+      loggedInToken = await getLoggedInToken();
+    }
+
     axios
-      .get(`${baseUrl}/auth/user/agronomist`)
+      .get(url, appTokenConfig(loggedInToken))
       .then((res) => {
         setAgronomists(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  };
+
+  React.useEffect(() => {
+    if (isAuthenticated && user) {
+      getUserLising("normal", true);
+    } else if (isAuthenticated !== null) {
+      getUserLising("normal", false);
+    }
+  }, [authState]);
 
   const registerChatUser = (userToRegister) => {
     private_socket.emit("username", userToRegister.phone);
@@ -31,7 +58,7 @@ function Consultation({ authState, showChat, selectedUser }) {
   if (isAuthenticated && user) {
     registerChatUser(user);
   } else {
-    console.log("Not Logged in");
+    // console.log("Not Logged in");
   }
 
   return (
@@ -47,6 +74,7 @@ function Consultation({ authState, showChat, selectedUser }) {
                 className={
                   user && user.phone === agronomist.phone ? "hidden" : "block"
                 }
+                onClick={setUnreadMessages}
               >
                 <Link
                   to={{
@@ -67,6 +95,9 @@ function Consultation({ authState, showChat, selectedUser }) {
                     </small>
                   </div>
                   <div>
+                    {agronomist.unread_count ? (
+                      <span>{agronomist.unread_count}</span>
+                    ) : null}{" "}
                     <i className="fas fa-angle-right text-5xl"></i>
                   </div>
                 </Link>

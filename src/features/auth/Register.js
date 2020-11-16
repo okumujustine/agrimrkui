@@ -6,7 +6,6 @@ import PhoneInput from "react-phone-number-input/input";
 import "./LoginRegister.css";
 import { registerUser } from "../../redux/actions/auth/authActions";
 import { toast } from "react-toastify";
-import { config } from "../../helperfuncs/getToken";
 
 function Register({ registerUser, authState }) {
   const [name, setName] = React.useState("");

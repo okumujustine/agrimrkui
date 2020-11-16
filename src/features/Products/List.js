@@ -2,11 +2,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import Pagination from "react-js-pagination";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 import { getProducts } from "../../redux/actions/products/ProductActions";
 import "../../components/PaginationCustom.css";
-import { baseUrl } from "../../common/constants";
 import ProductCard from "../../components/ProductCard";
 
 function List({ getProducts, productsState }) {

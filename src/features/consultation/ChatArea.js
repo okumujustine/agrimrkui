@@ -25,14 +25,12 @@ function ChatArea({ authState }) {
         .then((res) => {
           setLoadingMessages(false);
           setMessages(res.data);
-          console.log(res.data);
         })
         .catch((error) => {
-          console.log(error);
           setLoadingMessages(false);
         });
     }
-  }, [authState]);
+  }, [authState, location]);
 
   React.useEffect(() => {
     getMessages();
@@ -77,10 +75,25 @@ function ChatArea({ authState }) {
     }
   };
 
+  const setUnreadMessages = () => {
+    console.log("set unread messages");
+  };
+
+  const onScrollToBottom = (e) => {
+    const target = e.target;
+    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+      setUnreadMessages();
+    }
+  };
+
   return (
     <div className="flex flex-row justify-between">
       <div className="w-5/12">
-        <Consultation showChat={true} selectedUser={state.phone} />
+        <Consultation
+          showChat={true}
+          selectedUser={state.phone}
+          setUnreadMessages={setUnreadMessages}
+        />
       </div>
       <div
         className="bg-white w-full px-4 py-2 flex flex-col relative"
@@ -97,7 +110,10 @@ function ChatArea({ authState }) {
           ) : null}
         </div>
         {state ? (
-          <div className="flex flex-col p-2 h-full w-full">
+          <div
+            className="flex flex-col p-2 h-full w-full overflow-y-scroll mb-16"
+            onScroll={onScrollToBottom}
+          >
             {!loadingMessages && messages.length > 0 ? (
               messages.map((msg, index) => {
                 return (
@@ -146,6 +162,7 @@ function ChatArea({ authState }) {
                 name="type message here .."
                 placeholder="message"
                 style={{ width: "90%" }}
+                onClick={setUnreadMessages}
               />
               <button
                 className="focus:outline-none rounded-md border-2 border-agrisolidgreen bg-agrisolidgreen text-white px-4 h-10 ml-2"

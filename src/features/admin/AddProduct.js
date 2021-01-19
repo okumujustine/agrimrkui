@@ -98,7 +98,8 @@ export default function AddProduct() {
         setCategory("");
       })
       .catch((error) => {
-        toast.error("Failed to add blog, try again later");
+        console.log(error);
+        toast.error("Failed to add product, try again later");
       });
   };
   return (

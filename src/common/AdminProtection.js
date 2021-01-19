@@ -9,7 +9,7 @@ const AdminProtection = ({ component: Component, authState, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        if (user && user.roles && user.roles[0] === "agronomist") {
+        if ((user && user.roles && user.roles[0] === "agronomist") || "admin") {
           return <Component {...props} />;
         } else {
           return (

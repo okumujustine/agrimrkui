@@ -7,6 +7,7 @@ import {
   DECREMENT_ITEM_QUANTITY,
 } from "../types";
 import { cartItemKey } from "../../../common/constants";
+import { toastSuccess } from "../../../helperfuncs/toast";
 
 export const itemAlreadyInCart = (items, product) => {
   let itemsInCart = false;
@@ -28,14 +29,20 @@ export const addToCart = (items, product) => (dispatch) => {
 
   cartItems.forEach((item) => {
     if (item.id === product.id) {
-      toast.success(`${product.title} quantity incremented in cart`);
+      toastSuccess(`${product.title} quantity incremented in cart`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 10000,
+      });
       productInCart = true;
       item.count += 1;
     }
   });
 
   if (!productInCart) {
-    toast.success(`${product.title} Added to cart`);
+    toastSuccess(`${product.title} added cart`, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      autoClose: 1000,
+    });
     cartItems.push({ ...product, count: 1 });
   }
 

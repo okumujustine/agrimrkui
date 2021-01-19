@@ -7,12 +7,15 @@ import "./ScrollBar.css";
 import { baseUrl, private_socket } from "../../common/constants";
 import ChatSvg from "./ChatSvg";
 import { getLoggedInToken, appTokenConfig } from "../../helperfuncs/getToken";
+import { formatNumberWithK } from "../../helperfuncs/formatingfunctions";
+import { getMessageCountByPhone } from "../consultation/presenters/chatActions";
 
 function Consultation({
   authState,
   showChat,
   selectedUser,
   setUnreadMessages,
+  messages,
 }) {
   const { isAuthenticated, user } = authState;
 
@@ -83,22 +86,32 @@ function Consultation({
                   }}
                   className={
                     user && selectedUser === agronomist.phone
-                      ? `mb-2 max-w-xs  border-2 border-agrisolidgreen rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer bg-gray-200 hover:bg-gray-200`
-                      : `mb-2 bg-white max-w-xs  border-2 border-agrisolidgreen rounded-md px-4 py-2 flex flex-row justify-between cursor-pointer hover:bg-gray-100`
+                      ? `mb-2 max-w-xs  border-2 border-agrisolidgreen rounded-md px-4 py-2 flex flex-row justify-between items-center cursor-pointer bg-gray-200 hover:bg-gray-200`
+                      : `mb-2 bg-white max-w-xs  border-2 border-agrisolidgreen rounded-md px-4 py-2 flex flex-row justify-between items-center  cursor-pointer hover:bg-gray-100`
                   }
                 >
-                  <div className="bg-black rounded-full h-12 w-12"></div>
-                  <div className="flex flex-col">
+                  <div className="bg-black rounded-full h-12 w-12 mx-2"></div>
+                  <div className="flex flex-col flex-grow">
                     <h5 className="capitalize">{agronomist.name}</h5>
                     <small>
                       <b>{agronomist.phone}</b>
                     </small>
                   </div>
-                  <div>
-                    {agronomist.unread_count ? (
-                      <span>{agronomist.unread_count}</span>
-                    ) : null}{" "}
-                    <i className="fas fa-angle-right text-5xl"></i>
+                  <div className="flex flex-row items-center">
+                    {getMessageCountByPhone(messages, agronomist, user) !==
+                    0 ? (
+                      <div className="rounded-full bg-red-600 h-6 w-6 flex items-center justify-center">
+                        <p className="text-white text-xs">
+                          {formatNumberWithK(
+                            getMessageCountByPhone(messages, agronomist, user)
+                          )}
+                        </p>
+                      </div>
+                    ) : null}
+
+                    <div>
+                      <i className="fas fa-angle-right text-5xl"></i>
+                    </div>
                   </div>
                 </Link>
               </div>

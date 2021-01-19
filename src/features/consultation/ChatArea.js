@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { private_socket, baseUrl } from "../../common/constants";
 import Consultation from "./consultation";
 import axios from "axios";
+import { setUnreadMessages } from "../consultation/presenters/chatActions";
 
 function ChatArea({ authState }) {
   const { isAuthenticated, user } = authState;
@@ -75,10 +76,6 @@ function ChatArea({ authState }) {
     }
   };
 
-  const setUnreadMessages = () => {
-    console.log("set unread messages");
-  };
-
   const onScrollToBottom = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
@@ -93,6 +90,7 @@ function ChatArea({ authState }) {
           showChat={true}
           selectedUser={state.phone}
           setUnreadMessages={setUnreadMessages}
+          messages={messages}
         />
       </div>
       <div
@@ -160,7 +158,6 @@ function ChatArea({ authState }) {
                 className="border-2 h-10 rounded-md px-4 focus:outline-none"
                 value={message}
                 name="type message here .."
-                placeholder="message"
                 style={{ width: "90%" }}
                 onClick={setUnreadMessages}
               />

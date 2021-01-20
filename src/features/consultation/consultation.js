@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./ScrollBar.css";
 import { baseUrl, private_socket } from "../../common/constants";
@@ -14,12 +14,14 @@ function Consultation({
   authState,
   showChat,
   selectedUser,
-  setUnreadMessages,
   messages,
+  setUnreadMessages,
 }) {
   const { isAuthenticated, user } = authState;
 
   const [agronomists, setAgronomists] = React.useState([]);
+
+  let history = useHistory();
 
   const getUserLising = (user, loginStatus) => {
     if (loginStatus && user === "normal") {
@@ -53,6 +55,15 @@ function Consultation({
       getUserLising("normal", false);
     }
   }, [authState]);
+
+  React.useEffect(() => {
+    if (agronomists.length > 0) {
+      history.push({
+        pathname: `/chat/${agronomists[0].phone}`,
+        state: agronomists[0],
+      });
+    }
+  }, [agronomists]);
 
   const registerChatUser = (userToRegister) => {
     private_socket.emit("username", userToRegister.phone);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -24,6 +24,10 @@ function ChatArea({ authState }) {
           `${baseUrl}/consultation/chatmessages?sender=${user.phone}&receiver=${state.phone}`
         )
         .then((res) => {
+          console.log("---messages", {
+            phone: user.phone,
+            phone2: state.phone,
+          });
           setLoadingMessages(false);
           setMessages(res.data);
         })
@@ -79,8 +83,16 @@ function ChatArea({ authState }) {
   const onScrollToBottom = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
-      setUnreadMessages();
+      setUnreadMessages(messages, state, user)
+        .then((readMsg) => setMessages(readMsg))
+        .catch((error) => console.log(error));
     }
+  };
+
+  const setMessagesToUnread = () => {
+    setUnreadMessages(messages, state, user)
+      .then((readMsg) => setMessages(readMsg))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -89,7 +101,7 @@ function ChatArea({ authState }) {
         <Consultation
           showChat={true}
           selectedUser={state.phone}
-          setUnreadMessages={setUnreadMessages}
+          setMessagesToUnread={setMessagesToUnread}
           messages={messages}
         />
       </div>
@@ -124,7 +136,9 @@ function ChatArea({ authState }) {
                             : "hidden"
                         }
                       >
-                        <p className="text-black">{msg.message}</p>
+                        <p className="text-black">
+                          {msg.message} - {msg.read}
+                        </p>
                       </div>
                     ) : (
                       <div
@@ -134,7 +148,9 @@ function ChatArea({ authState }) {
                             : "hidden"
                         }
                       >
-                        <p className="text-black">{msg.message}</p>
+                        <p className="text-black">
+                          {msg.message} - {msg.read}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -159,7 +175,7 @@ function ChatArea({ authState }) {
                 value={message}
                 name="type message here .."
                 style={{ width: "90%" }}
-                onClick={setUnreadMessages}
+                onClick={setMessagesToUnread}
               />
               <button
                 className="focus:outline-none rounded-md border-2 border-agrisolidgreen bg-agrisolidgreen text-white px-4 h-10 ml-2"
